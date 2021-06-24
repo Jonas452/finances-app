@@ -1,12 +1,10 @@
 package com.jonas.financesapp.cache.mapper
 
 import com.google.common.truth.Truth.assertThat
-import com.jonas.financesapp.cache.entity.IncomeEntity
-import com.jonas.financesapp.model.IncomeItem
+import com.jonas.financesapp.util.createIncomeEntity
+import com.jonas.financesapp.util.createIncomeItem
 import org.junit.Before
 import org.junit.Test
-import java.math.BigDecimal
-import java.util.*
 
 class IncomeMapperTest {
 
@@ -20,13 +18,7 @@ class IncomeMapperTest {
     @Test
     fun `map income entity to income item returns income item`() {
         // Arrange
-        val entity = IncomeEntity(
-            null,
-            BigDecimal(2),
-            "description",
-            Date(),
-            true
-        )
+        val entity = createIncomeEntity()
 
         // Act
         val result = incomeMapper.toModel(entity)
@@ -42,13 +34,7 @@ class IncomeMapperTest {
     @Test
     fun `map income model to income entity returns income entity`() {
         // Arrange
-        val model = IncomeItem(
-            null,
-            BigDecimal(2),
-            "description",
-            Date(),
-            true
-        )
+        val model = createIncomeItem()
 
         // Act
         val result = incomeMapper.toEntity(model)
@@ -65,20 +51,8 @@ class IncomeMapperTest {
     fun `map income entity list to income item list returns income item list`() {
         // Arrange
         val entityList = listOf(
-            IncomeEntity(
-                null,
-                BigDecimal(2),
-                "description",
-                Date(),
-                false,
-            ),
-            IncomeEntity(
-                null,
-                BigDecimal(3),
-                "description2",
-                Date(),
-                true,
-            ),
+            createIncomeEntity(),
+            createIncomeEntity(),
         )
 
         // Act

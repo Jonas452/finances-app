@@ -1,12 +1,10 @@
 package com.jonas.financesapp.cache.mapper
 
 import com.google.common.truth.Truth.assertThat
-import com.jonas.financesapp.cache.entity.ExpenseEntity
-import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.util.createExpenseEntity
+import com.jonas.financesapp.util.createExpenseItem
 import org.junit.Before
 import org.junit.Test
-import java.math.BigDecimal
-import java.util.*
 
 class ExpenseMapperTest {
 
@@ -20,13 +18,7 @@ class ExpenseMapperTest {
     @Test
     fun `map expense entity to item returns expense item`() {
         // Arrange
-        val entity = ExpenseEntity(
-            null,
-            BigDecimal(2),
-            "description",
-            Date(),
-            false,
-        )
+        val entity = createExpenseEntity()
 
         // Act
         val result = expenseMapper.toModel(entity)
@@ -42,13 +34,7 @@ class ExpenseMapperTest {
     @Test
     fun `map expense item to entity returns expense entity`() {
         // Arrange
-        val model = ExpenseItem(
-            null,
-            BigDecimal(2),
-            "description",
-            Date(),
-            false,
-        )
+        val model = createExpenseItem()
 
         // Act
         val result = expenseMapper.toEntity(model)
@@ -65,20 +51,8 @@ class ExpenseMapperTest {
     fun `map expense entity list to expense item list returns expense item list`() {
         // Arrange
         val entityList = listOf(
-            ExpenseEntity(
-                null,
-                BigDecimal(2),
-                "description",
-                Date(),
-                false,
-            ),
-            ExpenseEntity(
-                null,
-                BigDecimal(3),
-                "description2",
-                Date(),
-                true,
-            ),
+            createExpenseEntity(),
+            createExpenseEntity(),
         )
 
         // Act

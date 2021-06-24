@@ -17,6 +17,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    sourceSets {
+        androidTest {
+            java.srcDirs += "src/sharedTest/java"
+        }
+        test {
+            java.srcDirs += "src/sharedTest/java"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
