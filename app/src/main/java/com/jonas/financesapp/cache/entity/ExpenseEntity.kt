@@ -18,7 +18,7 @@ data class ExpenseEntity(
 
     companion object {
 
-        const val TABLE_NAME = "income"
+        const val TABLE_NAME = "expense"
 
         const val COLUMN_ID = "id"
         const val COLUMN_AMOUNT = "amount"
