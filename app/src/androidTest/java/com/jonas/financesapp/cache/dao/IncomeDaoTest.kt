@@ -50,10 +50,11 @@ class IncomeDaoTest {
         incomeDao.insertIncome(incomeEntity)
 
         // Act
-        val incomeInserted = incomeDao.getIncomeById(incomeEntity.id!!)
+        val incomeInserted = incomeDao.getIncomeById(incomeEntity.id)
 
         // Assert
-        assertThat(incomeInserted.id).isEqualTo(incomeEntity.id)
+        assertThat(incomeInserted).isNotNull()
+        assertThat(incomeInserted!!.id).isEqualTo(incomeEntity.id)
         assertThat(incomeInserted.amount).isEqualTo(incomeEntity.amount)
         assertThat(incomeInserted.description).isEqualTo(incomeEntity.description)
         assertThat(incomeInserted.date).isEqualTo(incomeEntity.date)
@@ -77,7 +78,8 @@ class IncomeDaoTest {
         val incomeUpdated = incomeDao.getIncomeById(updatedIncome.id!!)
 
         // Assert
-        assertThat(incomeUpdated.id).isEqualTo(updatedIncome.id)
+        assertThat(incomeUpdated).isNotNull()
+        assertThat(incomeUpdated!!.id).isEqualTo(updatedIncome.id)
         assertThat(incomeUpdated.amount).isEqualTo(updatedIncome.amount)
         assertThat(incomeUpdated.description).isEqualTo(updatedIncome.description)
         assertThat(incomeUpdated.date).isEqualTo(updatedIncome.date)

@@ -3,6 +3,7 @@ package com.jonas.financesapp.cache.dao
 import androidx.room.*
 import com.jonas.financesapp.cache.entity.IncomeEntity
 import com.jonas.financesapp.cache.entity.IncomeEntity.Companion.TABLE_NAME
+import java.util.*
 
 @Dao
 interface IncomeDao {
@@ -18,6 +19,6 @@ interface IncomeDao {
         SELECT * FROM $TABLE_NAME WHERE id = :id
     """
     )
-    suspend fun getIncomeById(id: Long): IncomeEntity
+    suspend fun getIncomeById(id: UUID): IncomeEntity?
 
 }

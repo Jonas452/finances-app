@@ -3,6 +3,7 @@ package com.jonas.financesapp.cache.dao
 import androidx.room.*
 import com.jonas.financesapp.cache.entity.ExpenseEntity
 import com.jonas.financesapp.cache.entity.ExpenseEntity.Companion.TABLE_NAME
+import java.util.*
 
 @Dao
 interface ExpenseDao {
@@ -18,6 +19,6 @@ interface ExpenseDao {
             SELECT * FROM $TABLE_NAME WHERE id = :id
         """
     )
-    suspend fun getExpenseById(id: Long): ExpenseEntity
+    suspend fun getExpenseById(id: UUID): ExpenseEntity?
 
 }

@@ -49,10 +49,11 @@ class ExpenseDaoTest {
         expenseDao.insertExpense(expenseEntity)
 
         // Act
-        val expenseInserted = expenseDao.getExpenseById(expenseEntity.id!!)
+        val expenseInserted = expenseDao.getExpenseById(expenseEntity.id)
 
         // Assert
-        assertThat(expenseInserted.id).isEqualTo(expenseEntity.id)
+        assertThat(expenseInserted).isNotNull()
+        assertThat(expenseInserted!!.id).isEqualTo(expenseEntity.id)
         assertThat(expenseInserted.amount).isEqualTo(expenseEntity.amount)
         assertThat(expenseInserted.description).isEqualTo(expenseEntity.description)
         assertThat(expenseInserted.date).isEqualTo(expenseEntity.date)
@@ -71,12 +72,14 @@ class ExpenseDaoTest {
             expenseEntity.date,
             expenseEntity.payed,
         )
+
         // Act
         expenseDao.updateExpense(updatedExpense)
-        val expenseUpdated = expenseDao.getExpenseById(updatedExpense.id!!)
+        val expenseUpdated = expenseDao.getExpenseById(updatedExpense.id)
 
         // Assert
-        assertThat(expenseUpdated.id).isEqualTo(updatedExpense.id)
+        assertThat(expenseUpdated).isNotNull()
+        assertThat(expenseUpdated!!.id).isEqualTo(updatedExpense.id)
         assertThat(expenseUpdated.amount).isEqualTo(updatedExpense.amount)
         assertThat(expenseUpdated.description).isEqualTo(updatedExpense.description)
         assertThat(expenseUpdated.date).isEqualTo(updatedExpense.date)
