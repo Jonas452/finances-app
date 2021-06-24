@@ -8,7 +8,7 @@ import java.math.BigDecimal
 import java.util.*
 
 fun createExpenseEntity(
-    id: Long? = null,
+    id: UUID = UUID.randomUUID(),
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),
@@ -22,7 +22,7 @@ fun createExpenseEntity(
 )
 
 fun createExpenseItem(
-    id: Long? = null,
+    id: UUID = UUID.randomUUID(),
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),
@@ -36,7 +36,7 @@ fun createExpenseItem(
 )
 
 fun createIncomeEntity(
-    id: Long? = null,
+    id: UUID = UUID.randomUUID(),
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),
@@ -50,7 +50,7 @@ fun createIncomeEntity(
 )
 
 fun createIncomeItem(
-    id: Long? = null,
+    id: UUID = UUID.randomUUID(),
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),

@@ -4,9 +4,9 @@ import java.math.BigDecimal
 import java.util.*
 
 data class IncomeItem(
-    val id: Long?,
-    val amount: BigDecimal,
-    val description: String,
-    val date: Date,
-    val received: Boolean,
+    var id: UUID,
+    var amount: BigDecimal,
+    var description: String,
+    var date: Date,
+    var received: Boolean,
 )

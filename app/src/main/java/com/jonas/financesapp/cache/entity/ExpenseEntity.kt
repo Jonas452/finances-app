@@ -9,11 +9,11 @@ import java.util.*
 
 @Entity(tableName = TABLE_NAME)
 data class ExpenseEntity(
-    @PrimaryKey @ColumnInfo(name = COLUMN_ID) val id: Long?,
-    @ColumnInfo(name = COLUMN_AMOUNT) val amount: BigDecimal,
-    @ColumnInfo(name = COLUMN_DESCRIPTION) val description: String,
-    @ColumnInfo(name = COLUMN_DATE) val date: Date,
-    @ColumnInfo(name = COLUMN_PAYED) val payed: Boolean,
+    @PrimaryKey @ColumnInfo(name = COLUMN_ID) var id: UUID,
+    @ColumnInfo(name = COLUMN_AMOUNT) var amount: BigDecimal,
+    @ColumnInfo(name = COLUMN_DESCRIPTION) var description: String,
+    @ColumnInfo(name = COLUMN_DATE) var date: Date,
+    @ColumnInfo(name = COLUMN_PAYED) var payed: Boolean,
 ) {
 
     companion object {
