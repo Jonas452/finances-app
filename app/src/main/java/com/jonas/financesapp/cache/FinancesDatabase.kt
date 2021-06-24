@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.jonas.financesapp.cache.converter.BigDecimalConverter
+import com.jonas.financesapp.cache.converter.DateConverter
+import com.jonas.financesapp.cache.converter.UUIDConverter
 import com.jonas.financesapp.cache.dao.ExpenseDao
 import com.jonas.financesapp.cache.dao.IncomeDao
 import com.jonas.financesapp.cache.entity.ExpenseEntity
@@ -15,6 +19,13 @@ import com.jonas.financesapp.cache.entity.IncomeEntity
         IncomeEntity::class,
     ],
     version = 1,
+)
+@TypeConverters(
+    value = [
+        BigDecimalConverter::class,
+        DateConverter::class,
+        UUIDConverter::class,
+    ]
 )
 abstract class FinancesDatabase : RoomDatabase() {
 
