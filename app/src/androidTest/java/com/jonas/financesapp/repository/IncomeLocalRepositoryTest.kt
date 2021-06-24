@@ -1,13 +1,14 @@
-package com.jonas.financesapp.cache.dao
+package com.jonas.financesapp.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.MediumTest
 import com.google.common.truth.Truth.assertThat
 import com.jonas.financesapp.cache.FinancesDatabase
-import com.jonas.financesapp.util.createIncomeEntity
+import com.jonas.financesapp.cache.mapper.IncomeMapper
+import com.jonas.financesapp.util.createIncomeItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -16,26 +17,30 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-// Dao Test created just for the sake of TDD practice
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@SmallTest
-class IncomeDaoTest {
-
+@MediumTest
+class IncomeLocalRepositoryTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    private lateinit var incomeLocalRepository: IncomeLocalRepository
     private lateinit var database: FinancesDatabase
-    private lateinit var incomeDao: IncomeDao
 
     @Before
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             FinancesDatabase::class.java
-        ).build()
-        incomeDao = database.getIncomeDao()
+        )
+            .allowMainThreadQueries()
+            .build()
+
+        incomeLocalRepository = IncomeLocalRepositoryImpl(
+            database.getIncomeDao(),
+            IncomeMapper(),
+        )
     }
 
     @After
@@ -44,38 +49,40 @@ class IncomeDaoTest {
     }
 
     @Test
-    fun insertIncome_getById_returnsIncome() = runBlockingTest {
+    fun insertIncome() = runBlockingTest {
         // Arrange
-        val incomeEntity = createIncomeEntity()
-        incomeDao.insertIncome(incomeEntity)
+        val incomeItem = createIncomeItem()
+        incomeLocalRepository.insertIncome(incomeItem)
 
         // Act
-        val loaded = incomeDao.getIncomeById(incomeEntity.id)
+        val loaded = incomeLocalRepository.getIncomeById(incomeItem.id)
 
         // Assert
         assertThat(loaded).isNotNull()
-        assertThat(loaded!!.id).isEqualTo(incomeEntity.id)
-        assertThat(loaded.amount).isEqualTo(incomeEntity.amount)
-        assertThat(loaded.description).isEqualTo(incomeEntity.description)
-        assertThat(loaded.date).isEqualTo(incomeEntity.date)
-        assertThat(loaded.received).isEqualTo(incomeEntity.received)
+        assertThat(loaded!!.id).isEqualTo(incomeItem.id)
+        assertThat(loaded.amount).isEqualTo(incomeItem.amount)
+        assertThat(loaded.description).isEqualTo(incomeItem.description)
+        assertThat(loaded.date).isEqualTo(incomeItem.date)
+        assertThat(loaded.received).isEqualTo(incomeItem.received)
+
     }
 
     @Test
-    fun updateIncome_getById_returnsIncome() = runBlockingTest {
+    fun updateIncome() = runBlockingTest {
         // Arrange
-        val incomeEntity = createIncomeEntity()
-        incomeDao.insertIncome(incomeEntity)
-        val updatedIncome = createIncomeEntity(
-            incomeEntity.id,
-            incomeEntity.amount,
+        val incomeItem = createIncomeItem()
+        incomeLocalRepository.insertIncome(incomeItem)
+        val updatedIncome = createIncomeItem(
+            incomeItem.id,
+            incomeItem.amount,
             "new description",
-            incomeEntity.date,
-            incomeEntity.received,
+            incomeItem.date,
+            incomeItem.received,
         )
+
         // Act
-        incomeDao.updateIncome(updatedIncome)
-        val loaded = incomeDao.getIncomeById(updatedIncome.id)
+        incomeLocalRepository.updateIncome(updatedIncome)
+        val loaded = incomeLocalRepository.getIncomeById(updatedIncome.id)
 
         // Assert
         assertThat(loaded).isNotNull()
@@ -84,6 +91,7 @@ class IncomeDaoTest {
         assertThat(loaded.description).isEqualTo(updatedIncome.description)
         assertThat(loaded.date).isEqualTo(updatedIncome.date)
         assertThat(loaded.received).isEqualTo(updatedIncome.received)
+
     }
 
 }
