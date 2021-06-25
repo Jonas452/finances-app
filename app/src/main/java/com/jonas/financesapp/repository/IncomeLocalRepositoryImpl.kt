@@ -4,8 +4,9 @@ import com.jonas.financesapp.cache.dao.IncomeDao
 import com.jonas.financesapp.cache.mapper.IncomeMapper
 import com.jonas.financesapp.model.IncomeItem
 import java.util.*
+import javax.inject.Inject
 
-class IncomeLocalRepositoryImpl constructor(
+class IncomeLocalRepositoryImpl @Inject constructor(
     private val incomeDao: IncomeDao,
     private val incomeMapper: IncomeMapper,
 ) : IncomeLocalRepository {

@@ -2,8 +2,9 @@ package com.jonas.financesapp.cache.mapper
 
 import com.jonas.financesapp.cache.entity.ExpenseEntity
 import com.jonas.financesapp.model.ExpenseItem
+import javax.inject.Inject
 
-class ExpenseMapper {
+class ExpenseMapper @Inject constructor() {
 
     fun toModel(entity: ExpenseEntity): ExpenseItem {
         return ExpenseItem(

@@ -1,7 +1,10 @@
 package com.jonas.financesapp.ui.expense
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ExpenseCreateUpdateViewModel : ViewModel() {
+@HiltViewModel
+class ExpenseCreateUpdateViewModel @Inject constructor(): ViewModel() {
 
 }

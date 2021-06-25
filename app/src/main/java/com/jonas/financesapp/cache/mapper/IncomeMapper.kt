@@ -2,8 +2,9 @@ package com.jonas.financesapp.cache.mapper
 
 import com.jonas.financesapp.cache.entity.IncomeEntity
 import com.jonas.financesapp.model.IncomeItem
+import javax.inject.Inject
 
-class IncomeMapper {
+class IncomeMapper @Inject constructor() {
 
     fun toModel(entity: IncomeEntity): IncomeItem {
         return IncomeItem(

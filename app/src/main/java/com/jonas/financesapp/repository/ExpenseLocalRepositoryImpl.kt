@@ -4,8 +4,9 @@ import com.jonas.financesapp.cache.dao.ExpenseDao
 import com.jonas.financesapp.cache.mapper.ExpenseMapper
 import com.jonas.financesapp.model.ExpenseItem
 import java.util.*
+import javax.inject.Inject
 
-class ExpenseLocalRepositoryImpl constructor(
+class ExpenseLocalRepositoryImpl @Inject constructor(
     private val expenseDao: ExpenseDao,
     private val expenseMapper: ExpenseMapper,
 ) : ExpenseLocalRepository {
