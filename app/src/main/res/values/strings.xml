@@ -19,4 +19,8 @@
     <string name="error_fill_required_fields">Fill the required fields</string>
     <string name="success_inserting_income">Success inserting the Income</string>
     <string name="success_updating_income">Success updating Income</string>
+    <string name="error_inserting_expense">Error while inserting Expense</string>
+    <string name="error_updating_expense">Error while updating Expense</string>
+    <string name="success_inserting_expense">Success inserting the Expense</string>
+    <string name="success_updating_expense">Success updating Expense</string>
 </resources>

@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.jonas.financesapp.util.DataBindingConverters" />
+
         <variable
             name="viewModel"
             type="com.jonas.financesapp.ui.expense.ExpenseCreateUpdateViewModel" />
@@ -30,7 +32,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/amount"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="@={DataBindingConverters.convertDoubleToString(viewModel.amount)}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/description"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={viewModel.description}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="@={viewModel.date}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/keyline"
+                android:checked="@={viewModel.paid}"
                 android:text="@string/paid" />
 
             <com.google.android.material.button.MaterialButton
@@ -77,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/keyline"
+                android:onClick="@{() -> viewModel.saveExpense()}"
                 android:text="@string/save" />
 
         </LinearLayout>
