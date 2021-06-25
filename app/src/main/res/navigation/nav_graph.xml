@@ -9,7 +9,7 @@
         android:id="@+id/dashboardFragment"
         android:name="com.jonas.financesapp.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_incomeCreateUpdateFragment"
             app:destination="@id/incomeCreateUpdateFragment" />
@@ -21,19 +21,21 @@
         android:id="@+id/incomeCreateUpdateFragment"
         android:name="com.jonas.financesapp.ui.income.IncomeCreateUpdateFragment"
         android:label="fragment_income_create_update"
-        tools:layout="@layout/fragment_income_create_update" >
+        tools:layout="@layout/fragment_income_create_update">
         <action
             android:id="@+id/action_incomeCreateUpdateFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/expenseCreateUpdateFragment"
         android:name="com.jonas.financesapp.ui.expense.ExpenseCreateUpdateFragment"
         android:label="fragment_expense_create_update"
-        tools:layout="@layout/fragment_expense_create_update" >
+        tools:layout="@layout/fragment_expense_create_update">
         <action
             android:id="@+id/action_expenseCreateUpdateFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/dashboardFragment" />
     </fragment>
 
 </navigation>

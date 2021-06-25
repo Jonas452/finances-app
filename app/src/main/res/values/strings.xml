@@ -11,6 +11,12 @@
     <string name="amount">Amount</string>
     <string name="description">Description</string>
     <string name="date">Date</string>
-    <string name="payed">Payed</string>
+    <string name="paid">Paid</string>
     <string name="received">Received</string>
+    <string name="select_date">Select Date</string>
+    <string name="error_inserting_income">Error while trying to insert Income</string>
+    <string name="error_updating_income">Error while trying to update Income</string>
+    <string name="error_fill_required_fields">Fill the required fields</string>
+    <string name="success_inserting_income">Success inserting the Income</string>
+    <string name="success_updating_income">Success updating Income</string>
 </resources>
