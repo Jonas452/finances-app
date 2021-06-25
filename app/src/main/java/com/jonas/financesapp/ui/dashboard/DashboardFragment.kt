@@ -49,9 +49,8 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false).apply {
-            viewModel = viewModel
-        }
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
 
         setupListeners()
 

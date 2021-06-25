@@ -7,4 +7,10 @@
     <string name="add_income_fab">Add income fab</string>
     <string name="expense">Expense</string>
     <string name="income">Income</string>
+    <string name="save">Save</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="payed">Payed</string>
+    <string name="received">Received</string>
 </resources>
