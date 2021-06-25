@@ -4,57 +4,104 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.jonas.financesapp.R
+import com.jonas.financesapp.databinding.FragmentDashboardBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DashboardFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DashboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val viewModel by viewModels<DashboardViewModel>()
+    private lateinit var binding: FragmentDashboardBinding
+
+    private val rotateOpenAnim: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireContext(),
+            R.anim.rotate_open_anim
+        )
     }
+    private val rotateCloseAnim: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireContext(),
+            R.anim.rotate_close_anim
+        )
+    }
+    private val fromBottomAnim: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireContext(),
+            R.anim.from_bottom_anim
+        )
+    }
+    private val toBottomAnim: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireContext(),
+            R.anim.to_bottom_anim
+        )
+    }
+
+    private var fabIncomeExpenseClicked = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false).apply {
+            viewModel = viewModel
+        }
+
+        setupListeners()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DashboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setupListeners() {
+        binding.fabIncomeExpense.setOnClickListener {
+            fabIncomeExpenseClicked = !fabIncomeExpenseClicked
+            setupFabVisibility()
+            setupFabAnimations()
+            setupFabClickable()
+        }
+
+        binding.fabExpense.setOnClickListener {
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.fabIncome.setOnClickListener {
+            val action =
+                DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment()
+            findNavController().navigate(action)
+        }
+
     }
+
+    private fun setupFabVisibility() {
+        binding.fabExpense.isVisible = fabIncomeExpenseClicked
+        binding.fabIncome.isVisible = fabIncomeExpenseClicked
+    }
+
+    private fun setupFabAnimations() {
+        if (fabIncomeExpenseClicked) {
+            binding.fabExpense.startAnimation(fromBottomAnim)
+            binding.fabIncome.startAnimation(fromBottomAnim)
+
+            binding.fabIncomeExpense.startAnimation(rotateOpenAnim)
+        } else {
+            binding.fabExpense.startAnimation(toBottomAnim)
+            binding.fabIncome.startAnimation(toBottomAnim)
+
+            binding.fabIncomeExpense.startAnimation(rotateCloseAnim)
+        }
+    }
+
+    private fun setupFabClickable() {
+        binding.fabExpense.isClickable = fabIncomeExpenseClicked
+        binding.fabIncome.isClickable = fabIncomeExpenseClicked
+    }
+
 }
