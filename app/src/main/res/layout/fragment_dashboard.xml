@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white_ice">
 
         <include
             android:id="@+id/financesLayout"
@@ -34,7 +35,7 @@
             android:id="@+id/incomeExpenseList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/keyline"
+            android:layout_marginTop="@dimen/keyline_half"
             app:items="@{viewModel.incomeExpenseItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
