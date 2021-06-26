@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
 import com.jonas.financesapp.model.IncomeItem
+import com.jonas.financesapp.usecase.income.GetIncomeByIdUseCase
 import com.jonas.financesapp.usecase.income.InsertIncomeUseCase
 import com.jonas.financesapp.usecase.income.UpdateIncomeUseCase
 import com.jonas.financesapp.util.DateUtils
@@ -21,6 +22,7 @@ import kotlin.coroutines.CoroutineContext
 class IncomeCreateUpdateViewModel @Inject constructor(
     private val insertIncomeUseCase: InsertIncomeUseCase,
     private val updateIncomeUseCase: UpdateIncomeUseCase,
+    private val getIncomeByIdUseCase: GetIncomeByIdUseCase,
     @IOContext private val ioContext: CoroutineContext,
 ) : ViewModel() {
 
@@ -74,6 +76,25 @@ class IncomeCreateUpdateViewModel @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace() // Should be a log
             setErrorState()
+        }
+    }
+
+
+    fun loadIncome(id: String?) = viewModelScope.launch {
+        id?.let {
+            incomeId = it
+            isNewIncome = false
+            val income = getIncomeByIdUseCase(UUID.fromString(it))
+            if (income != null) {
+                amount.value = income.amount.toDouble()
+                description.value = income.description
+                date.value =
+                    DateUtils.formatDate(
+                        income.date,
+                        DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
+                    )
+                received.value = income.received
+            }
         }
     }
 

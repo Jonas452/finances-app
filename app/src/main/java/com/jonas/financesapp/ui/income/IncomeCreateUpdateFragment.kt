@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jonas.financesapp.R
 import com.jonas.financesapp.databinding.FragmentIncomeCreateUpdateBinding
@@ -25,12 +26,16 @@ class IncomeCreateUpdateFragment : Fragment() {
     private val viewModel by viewModels<IncomeCreateUpdateViewModel>()
     private lateinit var binding: FragmentIncomeCreateUpdateBinding
 
+    private val args: IncomeCreateUpdateFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentIncomeCreateUpdateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+
+        viewModel.loadIncome(args.id)
 
         setupListeners()
         setupObservers()

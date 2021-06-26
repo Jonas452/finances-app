@@ -25,7 +25,7 @@ class ExpenseCreateUpdateFragment : Fragment() {
     private val viewModel by viewModels<ExpenseCreateUpdateViewModel>()
     private lateinit var binding: FragmentExpenseCreateUpdateBinding
 
-    val args: ExpenseCreateUpdateFragmentArgs by navArgs()
+    private val args: ExpenseCreateUpdateFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
