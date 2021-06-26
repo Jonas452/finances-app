@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
 import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.usecase.expense.GetExpenseById
 import com.jonas.financesapp.usecase.expense.InsertExpenseUseCase
 import com.jonas.financesapp.usecase.expense.UpdateExpenseUseCase
 import com.jonas.financesapp.util.DateUtils
@@ -21,6 +22,7 @@ import kotlin.coroutines.CoroutineContext
 class ExpenseCreateUpdateViewModel @Inject constructor(
     private val insertExpenseUseCase: InsertExpenseUseCase,
     private val updateExpenseUseCase: UpdateExpenseUseCase,
+    private val getExpenseById: GetExpenseById,
     @IOContext private val ioContext: CoroutineContext,
 ) : ViewModel() {
 
@@ -77,6 +79,25 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
             setErrorState()
         }
     }
+
+    fun loadExpenses(id: String?) = viewModelScope.launch {
+        id?.let {
+            expenseId = it
+            isNewExpense = false
+            val expense = getExpenseById(UUID.fromString(it))
+            if (expense != null) {
+                amount.value = expense.amount.toDouble()
+                description.value = expense.description
+                date.value =
+                    DateUtils.formatDate(
+                        expense.date,
+                        DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
+                    )
+                paid.value = expense.payed
+            }
+        }
+    }
+
 
     private fun setSuccessState() {
         val state =

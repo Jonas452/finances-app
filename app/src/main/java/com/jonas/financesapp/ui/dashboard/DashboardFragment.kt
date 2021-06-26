@@ -12,7 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jonas.financesapp.R
 import com.jonas.financesapp.databinding.FragmentDashboardBinding
+import com.jonas.financesapp.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
@@ -61,6 +63,7 @@ class DashboardFragment : Fragment() {
 
         setupViews()
         setupListeners()
+        setupObservers()
 
         return binding.root
     }
@@ -79,16 +82,44 @@ class DashboardFragment : Fragment() {
 
         binding.fabExpense.setOnClickListener {
             val action =
-                DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment()
+                DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment(
+                    null
+                )
             findNavController().navigate(action)
         }
 
         binding.fabIncome.setOnClickListener {
             val action =
-                DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment()
+                DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(null)
             findNavController().navigate(action)
         }
 
+    }
+
+
+    private fun setupObservers() {
+        viewModel.dashboardEvent.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is DashboardViewModel.DashboardEvent.OpenExpenseCreateUpdateFragment -> openExpenseCreateFragment(
+                    event.id
+                )
+                is DashboardViewModel.DashboardEvent.OpenIncomeCreateUpdateFragment -> openIncomeCreateUpdateFragment(
+                    event.id
+                )
+            }
+        })
+    }
+
+    private fun openExpenseCreateFragment(id: UUID) {
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment(id.toString())
+        findNavController().navigate(action)
+    }
+
+    private fun openIncomeCreateUpdateFragment(id: UUID) {
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(id.toString())
+        findNavController().navigate(action)
     }
 
     private fun setupFabVisibility() {

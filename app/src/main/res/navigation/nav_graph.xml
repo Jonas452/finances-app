@@ -12,10 +12,20 @@
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_incomeCreateUpdateFragment"
-            app:destination="@id/incomeCreateUpdateFragment" />
+            app:destination="@id/incomeCreateUpdateFragment">
+            <argument
+                android:name="id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
         <action
             android:id="@+id/action_dashboardFragment_to_expenseCreateUpdateFragment"
-            app:destination="@id/expenseCreateUpdateFragment" />
+            app:destination="@id/expenseCreateUpdateFragment">
+            <argument
+                android:name="id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/incomeCreateUpdateFragment"
@@ -26,6 +36,10 @@
             android:id="@+id/action_incomeCreateUpdateFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@+id/dashboardFragment" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/expenseCreateUpdateFragment"
@@ -36,6 +50,10 @@
             android:id="@+id/action_expenseCreateUpdateFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@+id/dashboardFragment" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 </navigation>
