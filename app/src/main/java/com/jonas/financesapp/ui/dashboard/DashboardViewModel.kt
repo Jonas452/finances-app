@@ -23,6 +23,24 @@ class DashboardViewModel @Inject constructor(
     val dashboardEvent: LiveData<Event<DashboardEvent>>
         get() = _dashboardEvent
 
+    private val _balance = MutableLiveData<Double>()
+    val balance: LiveData<Double>
+        get() = _balance
+
+    private val _income = MutableLiveData<Double>()
+    val income: LiveData<Double>
+        get() = _income
+
+    private val _expense = MutableLiveData<Double>()
+    val expense: LiveData<Double>
+        get() = _expense
+
+    init {
+        _balance.value = 0.0
+        _income.value = 0.0
+        _expense.value = 0.0
+    }
+
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
         when (incomeExpenseItem.type) {
             IncomeExpenseType.INCOME -> _dashboardEvent.value =

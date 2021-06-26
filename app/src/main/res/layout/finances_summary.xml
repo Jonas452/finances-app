@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="balance"
+            type="String" />
+
+        <variable
+            name="income"
+            type="String" />
+
+        <variable
+            name="expense"
+            type="String" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/keyline">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/keyline">
+
+            <TextView
+                android:id="@+id/accountBalanceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/accountBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{balance}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/accountBalanceTitle"
+                tools:text="$ 10.00" />
+
+            <ImageView
+                android:id="@+id/incomeIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_arrow_upward"
+                android:backgroundTint="@color/green"
+                app:layout_constraintBottom_toBottomOf="@+id/income"
+                app:layout_constraintEnd_toStartOf="@+id/incomeTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/incomeTitle" />
+
+            <TextView
+                android:id="@+id/incomeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/keyline"
+                android:text="@string/income"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVerticalCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/accountBalance" />
+
+            <TextView
+                android:id="@+id/income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{income}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/green"
+                app:layout_constraintStart_toStartOf="@+id/incomeTitle"
+                app:layout_constraintTop_toBottomOf="@+id/incomeTitle"
+                tools:text="$ 20.00" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVerticalCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/expenseIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_arrow_downward"
+                android:backgroundTint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@+id/expense"
+                app:layout_constraintEnd_toStartOf="@+id/expenseTitle"
+                app:layout_constraintStart_toEndOf="@+id/income"
+                app:layout_constraintStart_toStartOf="@+id/guidelineVerticalCenter"
+                app:layout_constraintTop_toTopOf="@+id/expenseTitle" />
+
+            <TextView
+                android:id="@+id/expenseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/keyline"
+                android:text="@string/expense"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guidelineVerticalCenter"
+                app:layout_constraintTop_toBottomOf="@+id/accountBalance" />
+
+            <TextView
+                android:id="@+id/expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{expense}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toStartOf="@+id/expenseTitle"
+                app:layout_constraintTop_toBottomOf="@+id/expenseTitle"
+                tools:text="$ 10.00" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

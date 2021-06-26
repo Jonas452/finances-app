@@ -23,4 +23,5 @@
     <string name="error_updating_expense">Error while updating Expense</string>
     <string name="success_inserting_expense">Success inserting the Expense</string>
     <string name="success_updating_expense">Success updating Expense</string>
+    <string name="account_balance">Account balance</string>
 </resources>
