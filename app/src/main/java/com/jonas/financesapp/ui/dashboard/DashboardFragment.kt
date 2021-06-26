@@ -20,6 +20,8 @@ class DashboardFragment : Fragment() {
     private val viewModel by viewModels<DashboardViewModel>()
     private lateinit var binding: FragmentDashboardBinding
 
+    private lateinit var listAdapter: IncomeExpenseAdapter
+
     private val rotateOpenAnim: Animation by lazy {
         AnimationUtils.loadAnimation(
             requireContext(),
@@ -53,10 +55,18 @@ class DashboardFragment : Fragment() {
     ): View? {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
+        listAdapter = IncomeExpenseAdapter(viewModel)
+
+        setupViews()
         setupListeners()
 
         return binding.root
+    }
+
+    private fun setupViews() {
+        binding.incomeExpenseList.adapter = listAdapter
     }
 
     private fun setupListeners() {
