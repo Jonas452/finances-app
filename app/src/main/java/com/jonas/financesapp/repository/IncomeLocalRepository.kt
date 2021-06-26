@@ -1,6 +1,7 @@
 package com.jonas.financesapp.repository
 
 import com.jonas.financesapp.model.IncomeItem
+import kotlinx.coroutines.flow.Flow
 import java.util.*
 
 interface IncomeLocalRepository {
@@ -8,5 +9,6 @@ interface IncomeLocalRepository {
     suspend fun insertIncome(incomeItem: IncomeItem)
     suspend fun updateIncome(incomeItem: IncomeItem): Int
     suspend fun getIncomeById(id: UUID): IncomeItem?
+    fun getSumAllIncome(): Flow<Double>
 
 }

@@ -6,15 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.jonas.financesapp.model.IncomeExpenseItem
 import com.jonas.financesapp.model.IncomeExpenseType
+import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
+import com.jonas.financesapp.usecase.income.GetSumAllIncomeUseCase
 import com.jonas.financesapp.usecase.incomeexpense.GetAllIncomeExpenseUseCase
 import com.jonas.financesapp.util.Event
+import com.jonas.financesapp.util.roundTo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val getAllIncomeExpenseUseCase: GetAllIncomeExpenseUseCase,
+    getAllIncomeExpenseUseCase: GetAllIncomeExpenseUseCase,
+    getSumAllExpenseUseCase: GetSumAllExpenseUseCase,
+    getSumAllIncomeUseCase: GetSumAllIncomeUseCase,
 ) : ViewModel() {
 
     val incomeExpenseItems = getAllIncomeExpenseUseCase().asLiveData()
@@ -23,23 +29,8 @@ class DashboardViewModel @Inject constructor(
     val dashboardEvent: LiveData<Event<DashboardEvent>>
         get() = _dashboardEvent
 
-    private val _balance = MutableLiveData<Double>()
-    val balance: LiveData<Double>
-        get() = _balance
-
-    private val _income = MutableLiveData<Double>()
-    val income: LiveData<Double>
-        get() = _income
-
-    private val _expense = MutableLiveData<Double>()
-    val expense: LiveData<Double>
-        get() = _expense
-
-    init {
-        _balance.value = 0.0
-        _income.value = 0.0
-        _expense.value = 0.0
-    }
+    val income = getSumAllIncomeUseCase().map { it.roundTo(2) }.asLiveData()
+    val expense = getSumAllExpenseUseCase().map { it.roundTo(2) }.asLiveData()
 
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
         when (incomeExpenseItem.type) {

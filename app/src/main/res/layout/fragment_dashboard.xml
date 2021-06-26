@@ -24,7 +24,7 @@
             android:layout_marginStart="@dimen/keyline"
             android:layout_marginTop="@dimen/keyline"
             android:layout_marginEnd="@dimen/keyline"
-            app:balance="@{`$ ` + viewModel.balance}"
+            app:balance="@{`$ ` + (viewModel.income - viewModel.expense)}"
             app:expense="@{`$ ` + viewModel.expense}"
             app:income="@{`$ ` + viewModel.income}"
             app:layout_constraintEnd_toEndOf="parent"

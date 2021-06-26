@@ -3,6 +3,8 @@ package com.jonas.financesapp.repository
 import com.jonas.financesapp.cache.dao.ExpenseDao
 import com.jonas.financesapp.cache.mapper.ExpenseMapper
 import com.jonas.financesapp.model.ExpenseItem
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.*
 import javax.inject.Inject
 
@@ -31,6 +33,10 @@ class ExpenseLocalRepositoryImpl @Inject constructor(
         val entity = expenseDao.getExpenseById(id) ?: return null
 
         return expenseMapper.toModel(entity)
+    }
+
+    override fun getSumAllExpense(): Flow<Double> {
+        return expenseDao.getSumAllExpense().map { it ?: 0.0 }
     }
 
 }
