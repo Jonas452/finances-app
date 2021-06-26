@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="com.jonas.financesapp.util.DataBindingConverters" />
-
         <variable
             name="viewModel"
             type="com.jonas.financesapp.ui.expense.ExpenseCreateUpdateViewModel" />
@@ -33,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/amount"
                     android:inputType="numberDecimal"
-                    android:text="@={DataBindingConverters.convertDoubleToString(viewModel.amount)}" />
+                    android:text="@={viewModel.amount}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

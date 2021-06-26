@@ -2,17 +2,18 @@ package com.jonas.financesapp.cache.mapper
 
 import com.jonas.financesapp.cache.entity.IncomeExpenseView
 import com.jonas.financesapp.model.IncomeExpenseItem
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class IncomeExpenseMapper @Inject constructor() {
 
-    fun toModel(incomeExpenseView: IncomeExpenseView): IncomeExpenseItem {
+    private fun toModel(view: IncomeExpenseView): IncomeExpenseItem {
         return IncomeExpenseItem(
-            incomeExpenseView.id,
-            incomeExpenseView.amount,
-            incomeExpenseView.description,
-            incomeExpenseView.date,
-            incomeExpenseView.type,
+            view.id,
+            view.amount.setScale(2, BigDecimal.ROUND_HALF_EVEN),
+            view.description,
+            view.date,
+            view.type,
         )
     }
 

@@ -27,7 +27,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Exposed MutableLiveData for two-way data binding
-    val amount = MutableLiveData<Double>()
+    val amount = MutableLiveData<String>()
     val description = MutableLiveData<String>()
     val date = MutableLiveData<String>()
     val paid = MutableLiveData<Boolean>()
@@ -90,7 +90,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
             isNewExpense = false
             val expense = getExpenseById(UUID.fromString(it))
             if (expense != null) {
-                amount.value = expense.amount.toDouble()
+                amount.value = expense.amount.toString()
                 description.value = expense.description
                 date.value =
                     DateUtils.formatDate(

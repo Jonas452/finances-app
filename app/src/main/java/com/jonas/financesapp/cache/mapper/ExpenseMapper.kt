@@ -2,6 +2,7 @@ package com.jonas.financesapp.cache.mapper
 
 import com.jonas.financesapp.cache.entity.ExpenseEntity
 import com.jonas.financesapp.model.ExpenseItem
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class ExpenseMapper @Inject constructor() {
@@ -9,7 +10,7 @@ class ExpenseMapper @Inject constructor() {
     fun toModel(entity: ExpenseEntity): ExpenseItem {
         return ExpenseItem(
             entity.id,
-            entity.amount,
+            entity.amount.setScale(2, BigDecimal.ROUND_HALF_EVEN),
             entity.description,
             entity.date,
             entity.payed,
@@ -19,7 +20,7 @@ class ExpenseMapper @Inject constructor() {
     fun toEntity(model: ExpenseItem): ExpenseEntity {
         return ExpenseEntity(
             model.id,
-            model.amount,
+            model.amount.setScale(2, BigDecimal.ROUND_HALF_EVEN),
             model.description,
             model.date,
             model.payed,
