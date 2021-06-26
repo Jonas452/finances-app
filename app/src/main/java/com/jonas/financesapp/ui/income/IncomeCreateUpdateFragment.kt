@@ -34,7 +34,8 @@ class IncomeCreateUpdateFragment : Fragment() {
     ): View? {
         binding = FragmentIncomeCreateUpdateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        
         viewModel.loadIncome(args.id)
 
         setupListeners()

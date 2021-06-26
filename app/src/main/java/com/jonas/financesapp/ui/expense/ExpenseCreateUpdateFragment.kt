@@ -33,6 +33,7 @@ class ExpenseCreateUpdateFragment : Fragment() {
     ): View? {
         binding = FragmentExpenseCreateUpdateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         viewModel.loadExpenses(args.id)
 
