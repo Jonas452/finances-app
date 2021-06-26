@@ -38,6 +38,10 @@ class IncomeCreateUpdateViewModel @Inject constructor(
     private var incomeId: String? = null
     private var isNewIncome = true
 
+    init {
+        received.value = false
+    }
+
     fun saveIncome() = viewModelScope.launch(ioContext) {
         try {
             val currentAmount = amount.value

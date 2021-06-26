@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={DataBindingConverters.convertDoubleToString(viewModel.amount)}" />
 
             </com.google.android.material.textfield.TextInputLayout>

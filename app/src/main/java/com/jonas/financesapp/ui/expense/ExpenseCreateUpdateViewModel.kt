@@ -39,6 +39,10 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
     private var expenseId: String? = null
     private var isNewExpense = true
 
+    init {
+        paid.value = false
+    }
+
     fun saveExpense() = viewModelScope.launch(ioContext) {
         try {
             val currentAmount = amount.value
