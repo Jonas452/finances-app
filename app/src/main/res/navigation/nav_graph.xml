@@ -32,10 +32,6 @@
         android:name="com.jonas.financesapp.ui.income.IncomeCreateUpdateFragment"
         android:label="fragment_income_create_update"
         tools:layout="@layout/fragment_income_create_update">
-        <action
-            android:id="@+id/action_incomeCreateUpdateFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
-            app:popUpTo="@+id/dashboardFragment" />
         <argument
             android:name="id"
             app:argType="string"
@@ -46,10 +42,6 @@
         android:name="com.jonas.financesapp.ui.expense.ExpenseCreateUpdateFragment"
         android:label="fragment_expense_create_update"
         tools:layout="@layout/fragment_expense_create_update">
-        <action
-            android:id="@+id/action_expenseCreateUpdateFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
-            app:popUpTo="@+id/dashboardFragment" />
         <argument
             android:name="id"
             app:argType="string"

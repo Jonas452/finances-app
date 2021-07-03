@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -83,29 +84,22 @@ class ExpenseCreateUpdateFragment : Fragment() {
                     ).show()
                 }
                 ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.SuccessInserting -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.success_inserting_expense,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                    navigateBack()
+                    navigateBackSuccess(R.string.success_inserting_expense)
                 }
                 ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.SuccessUpdating -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.success_updating_expense,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                    navigateBack()
+                    navigateBackSuccess(R.string.success_updating_expense)
                 }
             }
         })
     }
 
-    private fun navigateBack() {
-        val action =
-            ExpenseCreateUpdateFragmentDirections.actionExpenseCreateUpdateFragmentToDashboardFragment()
-        findNavController().navigate(action)
+    private fun navigateBackSuccess(@StringRes msg: Int) {
+        Toast.makeText(
+            requireActivity().applicationContext,
+            msg,
+            Toast.LENGTH_LONG,
+        ).show()
+        findNavController().popBackStack()
     }
 
     private fun showDatePicker() {

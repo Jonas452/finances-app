@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,7 +37,7 @@ class IncomeCreateUpdateFragment : Fragment() {
         binding = FragmentIncomeCreateUpdateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
-        
+
         viewModel.loadIncome(args.id)
 
         setupListeners()
@@ -84,29 +85,22 @@ class IncomeCreateUpdateFragment : Fragment() {
                     ).show()
                 }
                 IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessInserting -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.success_inserting_income,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                    navigateBack()
+                    navigateBackSuccess(R.string.success_inserting_income)
                 }
                 IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessUpdating -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.success_updating_income,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                    navigateBack()
+                    navigateBackSuccess(R.string.success_updating_income)
                 }
             }
         })
     }
 
-    private fun navigateBack() {
-        val action =
-            IncomeCreateUpdateFragmentDirections.actionIncomeCreateUpdateFragmentToDashboardFragment()
-        findNavController().navigate(action)
+    private fun navigateBackSuccess(@StringRes msg: Int) {
+        Toast.makeText(
+            requireActivity().applicationContext,
+            msg,
+            Toast.LENGTH_LONG,
+        ).show()
+        findNavController().popBackStack()
     }
 
     private fun showDatePicker() {
