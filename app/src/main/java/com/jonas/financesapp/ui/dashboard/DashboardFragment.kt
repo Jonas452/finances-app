@@ -72,6 +72,11 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        fabIncomeExpenseClicked = false
+    }
+
     private fun setupViews() {
         binding.incomeExpenseList.adapter = listAdapter
     }
