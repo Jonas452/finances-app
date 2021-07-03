@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.transition.MaterialFadeThrough
 import com.jonas.financesapp.R
 import com.jonas.financesapp.databinding.FragmentIncomeCreateUpdateBinding
 import com.jonas.financesapp.util.DateUtils
@@ -40,6 +41,9 @@ class IncomeCreateUpdateFragment : Fragment() {
 
         setupListeners()
         setupObservers()
+
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
 
         return binding.root
     }
