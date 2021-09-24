@@ -13,7 +13,7 @@ class ExpenseMapper @Inject constructor() {
             entity.amount.setScale(2, BigDecimal.ROUND_HALF_EVEN),
             entity.description,
             entity.date,
-            entity.payed,
+            entity.paid,
         )
     }
 
@@ -23,7 +23,7 @@ class ExpenseMapper @Inject constructor() {
             model.amount.setScale(2, BigDecimal.ROUND_HALF_EVEN),
             model.description,
             model.date,
-            model.payed,
+            model.paid,
         )
     }
 

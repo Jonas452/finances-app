@@ -57,7 +57,7 @@ class ExpenseDaoTest {
         assertThat(loaded.amount).isEqualTo(expenseEntity.amount)
         assertThat(loaded.description).isEqualTo(expenseEntity.description)
         assertThat(loaded.date).isEqualTo(expenseEntity.date)
-        assertThat(loaded.payed).isEqualTo(expenseEntity.payed)
+        assertThat(loaded.paid).isEqualTo(expenseEntity.paid)
     }
 
     @Test
@@ -70,7 +70,7 @@ class ExpenseDaoTest {
             expenseEntity.amount,
             "new description",
             expenseEntity.date,
-            expenseEntity.payed,
+            expenseEntity.paid,
         )
 
         // Act
@@ -83,7 +83,7 @@ class ExpenseDaoTest {
         assertThat(loaded.amount).isEqualTo(updatedExpense.amount)
         assertThat(loaded.description).isEqualTo(updatedExpense.description)
         assertThat(loaded.date).isEqualTo(updatedExpense.date)
-        assertThat(loaded.payed).isEqualTo(updatedExpense.payed)
+        assertThat(loaded.paid).isEqualTo(updatedExpense.paid)
     }
 
 }

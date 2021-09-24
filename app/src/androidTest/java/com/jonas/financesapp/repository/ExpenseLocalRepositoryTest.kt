@@ -64,7 +64,7 @@ class ExpenseLocalRepositoryTest {
         assertThat(loaded.amount).isEqualTo(expenseItem.amount)
         assertThat(loaded.description).isEqualTo(expenseItem.description)
         assertThat(loaded.date).isEqualTo(expenseItem.date)
-        assertThat(loaded.payed).isEqualTo(expenseItem.payed)
+        assertThat(loaded.paid).isEqualTo(expenseItem.paid)
 
     }
 
@@ -78,7 +78,7 @@ class ExpenseLocalRepositoryTest {
             expenseItem.amount,
             "new description",
             expenseItem.date,
-            expenseItem.payed,
+            expenseItem.paid,
         )
 
         // Act
@@ -91,7 +91,7 @@ class ExpenseLocalRepositoryTest {
         assertThat(loaded.amount).isEqualTo(updatedExpense.amount)
         assertThat(loaded.description).isEqualTo(updatedExpense.description)
         assertThat(loaded.date).isEqualTo(updatedExpense.date)
-        assertThat(loaded.payed).isEqualTo(updatedExpense.payed)
+        assertThat(loaded.paid).isEqualTo(updatedExpense.paid)
 
     }
 

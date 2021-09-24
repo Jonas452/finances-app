@@ -13,7 +13,7 @@ data class ExpenseEntity(
     @ColumnInfo(name = COLUMN_AMOUNT) var amount: BigDecimal,
     @ColumnInfo(name = COLUMN_DESCRIPTION) var description: String,
     @ColumnInfo(name = COLUMN_DATE) var date: Date,
-    @ColumnInfo(name = COLUMN_PAYED) var payed: Boolean,
+    @ColumnInfo(name = COLUMN_PAID) var paid: Boolean,
 ) {
 
     companion object {
@@ -24,7 +24,7 @@ data class ExpenseEntity(
         const val COLUMN_AMOUNT = "amount"
         const val COLUMN_DESCRIPTION = "description"
         const val COLUMN_DATE = "date"
-        const val COLUMN_PAYED = "payed"
+        const val COLUMN_PAID = "paid"
 
     }
 

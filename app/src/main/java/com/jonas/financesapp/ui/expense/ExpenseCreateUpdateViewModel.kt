@@ -62,7 +62,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
                         currentDate,
                         DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
                     ),
-                    payed = currentPaid,
+                    paid = currentPaid,
                 )
 
                 val currentExpenseId = expenseId
@@ -97,7 +97,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
                         expense.date,
                         DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
                     )
-                paid.value = expense.payed
+                paid.value = expense.paid
             }
         }
     }

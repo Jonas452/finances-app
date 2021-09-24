@@ -12,13 +12,13 @@ fun createExpenseEntity(
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),
-    payed: Boolean = true,
+    paid: Boolean = true,
 ) = ExpenseEntity(
     id,
     amount,
     description,
     date,
-    payed,
+    paid,
 )
 
 fun createExpenseItem(
@@ -26,13 +26,13 @@ fun createExpenseItem(
     amount: BigDecimal = BigDecimal(2),
     description: String = "description",
     date: Date = Date(),
-    payed: Boolean = true,
+    paid: Boolean = true,
 ) = ExpenseItem(
     id,
     amount,
     description,
     date,
-    payed,
+    paid,
 )
 
 fun createIncomeEntity(

@@ -28,7 +28,7 @@ class ExpenseMapperTest {
         assertThat(result.amount).isEqualTo(entity.amount)
         assertThat(result.description).isEqualTo(entity.description)
         assertThat(result.date).isEqualTo(entity.date)
-        assertThat(result.payed).isEqualTo(entity.payed)
+        assertThat(result.paid).isEqualTo(entity.paid)
     }
 
     @Test
@@ -44,7 +44,7 @@ class ExpenseMapperTest {
         assertThat(result.amount).isEqualTo(model.amount)
         assertThat(result.description).isEqualTo(model.description)
         assertThat(result.date).isEqualTo(model.date)
-        assertThat(result.payed).isEqualTo(model.payed)
+        assertThat(result.paid).isEqualTo(model.paid)
     }
 
     @Test

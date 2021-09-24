@@ -8,5 +8,5 @@ data class ExpenseItem(
     var amount: BigDecimal,
     var description: String,
     var date: Date,
-    var payed: Boolean,
+    var paid: Boolean,
 )
