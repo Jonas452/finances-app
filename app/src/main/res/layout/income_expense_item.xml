@@ -24,6 +24,7 @@
         android:layout_marginTop="@dimen/keyline_half"
         android:layout_marginBottom="@dimen/keyline_half"
         android:layout_marginEnd="@dimen/keyline"
+        app:cardCornerRadius="@dimen/card_radius"
         android:onClick="@{() -> viewModel.openIncomeExpense(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +51,7 @@
                 android:text="@{item.getAmountAsMoney(context)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/typeIcon"
                 app:layout_constraintStart_toEndOf="@id/typeIcon"
                 app:layout_constraintTop_toTopOf="parent"
