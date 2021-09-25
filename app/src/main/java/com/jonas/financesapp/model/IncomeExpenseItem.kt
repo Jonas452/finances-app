@@ -1,10 +1,11 @@
 package com.jonas.financesapp.model
 
+import android.content.Context
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.jonas.financesapp.R
 import com.jonas.financesapp.util.DateUtils
+import com.jonas.financesapp.util.formatToMoney
 import java.math.BigDecimal
 import java.util.*
 
@@ -38,5 +39,7 @@ data class IncomeExpenseItem(
             DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
         )
     }
+
+    fun getAmountAsMoney(context: Context) = amount.toDouble().formatToMoney(context)
 
 }

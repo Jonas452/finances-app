@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/keyline_half"
-                android:text="@{item.amount.toString()}"
+                android:text="@{item.getAmountAsMoney(context)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/typeIcon"
