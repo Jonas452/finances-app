@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyline"
         android:layout_marginTop="@dimen/keyline_half"
-        android:layout_marginBottom="@dimen/keyline_half"
         android:layout_marginEnd="@dimen/keyline"
-        app:cardCornerRadius="@dimen/card_radius"
-        android:onClick="@{() -> viewModel.openIncomeExpense(item)}">
+        android:layout_marginBottom="@dimen/keyline_half"
+        android:onClick="@{() -> viewModel.openIncomeExpense(item)}"
+        app:cardCornerRadius="@dimen/card_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,17 +45,14 @@
 
             <TextView
                 android:id="@+id/amountTextView"
+                style="@style/IncomeExpenseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/keyline_half"
                 android:text="@{item.getAmountAsMoney(context)}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/typeIcon"
                 app:layout_constraintStart_toEndOf="@id/typeIcon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="2000" />
+                tools:text="$ 2000" />
 
             <TextView
                 android:id="@+id/dateTextView"

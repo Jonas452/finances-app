@@ -22,8 +22,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_radius"
-        android:layout_margin="@dimen/keyline">
+        android:layout_margin="@dimen/keyline"
+        app:cardCornerRadius="@dimen/card_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -41,12 +41,10 @@
 
             <TextView
                 android:id="@+id/accountBalance"
+                style="@style/BalanceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{balanceValue}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/accountBalanceTitle"
@@ -75,11 +73,10 @@
 
             <TextView
                 android:id="@+id/income"
+                style="@style/IncomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{incomeValue}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/green"
                 app:layout_constraintStart_toStartOf="@+id/incomeTitle"
                 app:layout_constraintTop_toBottomOf="@+id/incomeTitle"
                 tools:text="$ 20.00" />
@@ -115,11 +112,10 @@
 
             <TextView
                 android:id="@+id/expense"
+                style="@style/ExpenseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{expenseValue}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/red"
                 app:layout_constraintStart_toStartOf="@+id/expenseTitle"
                 app:layout_constraintTop_toBottomOf="@+id/expenseTitle"
                 tools:text="$ 10.00" />
