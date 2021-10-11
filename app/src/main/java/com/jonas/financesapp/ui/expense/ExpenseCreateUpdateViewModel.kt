@@ -1,7 +1,5 @@
 package com.jonas.financesapp.ui.expense
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
@@ -10,8 +8,9 @@ import com.jonas.financesapp.usecase.expense.GetExpenseById
 import com.jonas.financesapp.usecase.expense.InsertExpenseUseCase
 import com.jonas.financesapp.usecase.expense.UpdateExpenseUseCase
 import com.jonas.financesapp.util.DateUtils
-import com.jonas.financesapp.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.*
@@ -27,14 +26,15 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Exposed MutableLiveData for two-way data binding
-    val amount = MutableLiveData<String>()
-    val description = MutableLiveData<String>()
-    val date = MutableLiveData<String>()
-    val paid = MutableLiveData<Boolean>()
+    val amount = MutableStateFlow("")
+    val description = MutableStateFlow("")
+    val date = MutableStateFlow("")
+    val paid = MutableStateFlow(false)
 
-    private val _expenseCreateUpdateEvent = MutableLiveData<Event<ExpenseCreateUpdateState>>()
-    val expenseCreateUpdateEvent: LiveData<Event<ExpenseCreateUpdateState>> =
-        _expenseCreateUpdateEvent
+    private val _expenseCreateUpdateEvent =
+        MutableStateFlow<ExpenseCreateUpdateState>(ExpenseCreateUpdateState.Empty)
+    val expenseCreateUpdateEvent: StateFlow<ExpenseCreateUpdateState>
+        get() = _expenseCreateUpdateEvent
 
     private var expenseId: String? = null
     private var isNewExpense = true
@@ -50,10 +50,9 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
             val currentDate = date.value
             val currentPaid = paid.value
 
-            if (currentAmount != null &&
-                currentDescription != null &&
-                currentDate != null &&
-                currentPaid != null
+            if (currentAmount.isNotEmpty() &&
+                currentDescription.isNotEmpty() &&
+                currentDate.isNotEmpty()
             ) {
                 val expenseItem = ExpenseItem(
                     amount = BigDecimal(currentAmount),
@@ -74,9 +73,8 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
                 }
                 setSuccessState()
             } else {
-                _expenseCreateUpdateEvent.postValue(
-                    Event(ExpenseCreateUpdateState.InvalidData)
-                )
+                _expenseCreateUpdateEvent.value =
+                    ExpenseCreateUpdateState.InvalidData
             }
         } catch (e: Exception) {
             e.printStackTrace() // Should be a log
@@ -84,35 +82,37 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
         }
     }
 
-    fun loadExpenses(id: String?) = viewModelScope.launch {
-        id?.let {
-            expenseId = it
-            isNewExpense = false
-            val expense = getExpenseById(UUID.fromString(it))
-            if (expense != null) {
-                amount.value = expense.amount.toString()
-                description.value = expense.description
-                date.value =
-                    DateUtils.formatDate(
-                        expense.date,
-                        DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
-                    )
-                paid.value = expense.paid
-            }
+    fun loadExpenses(id: String) = viewModelScope.launch {
+        expenseId = id
+        isNewExpense = false
+        val expense = getExpenseById(UUID.fromString(id))
+        if (expense != null) {
+            amount.value = expense.amount.toString()
+            description.value = expense.description
+            date.value =
+                DateUtils.formatDate(
+                    expense.date,
+                    DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
+                )
+            paid.value = expense.paid
         }
     }
 
 
     private fun setSuccessState() {
-        val state =
-            if (isNewExpense) ExpenseCreateUpdateState.SuccessInserting else ExpenseCreateUpdateState.SuccessUpdating
-        _expenseCreateUpdateEvent.postValue(Event(state))
+        _expenseCreateUpdateEvent.value =
+            if (isNewExpense)
+                ExpenseCreateUpdateState.SuccessInserting
+            else
+                ExpenseCreateUpdateState.SuccessUpdating
     }
 
     private fun setErrorState() {
-        val state =
-            if (isNewExpense) ExpenseCreateUpdateState.ErrorInserting else ExpenseCreateUpdateState.ErrorUpdating
-        _expenseCreateUpdateEvent.postValue(Event(state))
+        _expenseCreateUpdateEvent.value =
+            if (isNewExpense)
+                ExpenseCreateUpdateState.ErrorInserting
+            else
+                ExpenseCreateUpdateState.ErrorUpdating
     }
 
     sealed class ExpenseCreateUpdateState {
@@ -121,6 +121,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
         object SuccessUpdating : ExpenseCreateUpdateState()
         object ErrorUpdating : ExpenseCreateUpdateState()
         object InvalidData : ExpenseCreateUpdateState()
+        object Empty : ExpenseCreateUpdateState()
     }
 
 }

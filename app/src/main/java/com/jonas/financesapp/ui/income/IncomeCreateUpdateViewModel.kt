@@ -97,12 +97,18 @@ class IncomeCreateUpdateViewModel @Inject constructor(
 
     private fun setSuccessState() {
         _incomeCreateUpdateEvent.value =
-            if (isNewIncome) IncomeCreateUpdateState.SuccessInserting else IncomeCreateUpdateState.SuccessUpdating
+            if (isNewIncome)
+                IncomeCreateUpdateState.SuccessInserting
+            else
+                IncomeCreateUpdateState.SuccessUpdating
     }
 
     private fun setErrorState() {
         _incomeCreateUpdateEvent.value =
-            if (isNewIncome) IncomeCreateUpdateState.ErrorInserting else IncomeCreateUpdateState.ErrorUpdating
+            if (isNewIncome)
+                IncomeCreateUpdateState.ErrorInserting
+            else
+                IncomeCreateUpdateState.ErrorUpdating
     }
 
     sealed class IncomeCreateUpdateState {
