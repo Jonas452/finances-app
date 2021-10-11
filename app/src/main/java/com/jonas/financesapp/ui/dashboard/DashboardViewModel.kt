@@ -1,10 +1,7 @@
 package com.jonas.financesapp.ui.dashboard
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
+import androidx.lifecycle.*
 import com.jonas.financesapp.model.IncomeExpenseItem
 import com.jonas.financesapp.model.IncomeExpenseType
 import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
@@ -15,7 +12,9 @@ import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +25,12 @@ class DashboardViewModel @Inject constructor(
     getSumAllIncomeUseCase: GetSumAllIncomeUseCase,
 ) : ViewModel() {
 
-    val incomeExpenseItems = getAllIncomeExpenseUseCase().asLiveData()
+    val incomeExpenseItems: StateFlow<List<IncomeExpenseItem>> =
+        getAllIncomeExpenseUseCase().stateIn(
+            viewModelScope,
+            SharingStarted.Lazily,
+            emptyList(),
+        )
 
     private val _dashboardEvent = MutableStateFlow<DashboardUIState>(DashboardUIState.Empty)
     val dashboardEvent: StateFlow<DashboardUIState>

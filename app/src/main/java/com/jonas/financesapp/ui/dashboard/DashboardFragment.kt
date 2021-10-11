@@ -59,7 +59,7 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -106,9 +106,7 @@ class DashboardFragment : Fragment() {
                 DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(null)
             findNavController().navigate(action)
         }
-
     }
-
 
     private fun setupObservers() {
         lifecycleScope.launch {
@@ -163,5 +161,4 @@ class DashboardFragment : Fragment() {
         binding.fabExpense.isClickable = fabIncomeExpenseClicked
         binding.fabIncome.isClickable = fabIncomeExpenseClicked
     }
-
 }
