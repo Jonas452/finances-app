@@ -69,22 +69,22 @@ class ExpenseCreateUpdateFragment : Fragment() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.expenseCreateUpdateEvent.collect { state ->
                     when (state) {
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.ErrorInserting -> {
+                        ExpenseCreateUpdateUIState.ErrorInserting -> {
                             showErrorToast(R.string.error_inserting_expense)
                         }
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.ErrorUpdating -> {
+                        ExpenseCreateUpdateUIState.ErrorUpdating -> {
                             showErrorToast(R.string.error_updating_expense)
                         }
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.InvalidData -> {
+                        ExpenseCreateUpdateUIState.InvalidData -> {
                             showErrorToast(R.string.error_fill_required_fields)
                         }
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.SuccessInserting -> {
+                        ExpenseCreateUpdateUIState.SuccessInserting -> {
                             navigateBackSuccess(R.string.success_inserting_expense)
                         }
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.SuccessUpdating -> {
+                        ExpenseCreateUpdateUIState.SuccessUpdating -> {
                             navigateBackSuccess(R.string.success_updating_expense)
                         }
-                        ExpenseCreateUpdateViewModel.ExpenseCreateUpdateState.Empty -> Any() //does nothing
+                        ExpenseCreateUpdateUIState.Empty -> Any() //does nothing
                     }
                 }
             }

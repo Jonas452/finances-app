@@ -32,8 +32,8 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
     val paid = MutableStateFlow(false)
 
     private val _expenseCreateUpdateEvent =
-        MutableStateFlow<ExpenseCreateUpdateState>(ExpenseCreateUpdateState.Empty)
-    val expenseCreateUpdateEvent: StateFlow<ExpenseCreateUpdateState>
+        MutableStateFlow<ExpenseCreateUpdateUIState>(ExpenseCreateUpdateUIState.Empty)
+    val expenseCreateUpdateEvent: StateFlow<ExpenseCreateUpdateUIState>
         get() = _expenseCreateUpdateEvent
 
     private var expenseId: String? = null
@@ -74,7 +74,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
                 setSuccessState()
             } else {
                 _expenseCreateUpdateEvent.value =
-                    ExpenseCreateUpdateState.InvalidData
+                    ExpenseCreateUpdateUIState.InvalidData
             }
         } catch (e: Exception) {
             e.printStackTrace() // Should be a log
@@ -102,26 +102,16 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
     private fun setSuccessState() {
         _expenseCreateUpdateEvent.value =
             if (isNewExpense)
-                ExpenseCreateUpdateState.SuccessInserting
+                ExpenseCreateUpdateUIState.SuccessInserting
             else
-                ExpenseCreateUpdateState.SuccessUpdating
+                ExpenseCreateUpdateUIState.SuccessUpdating
     }
 
     private fun setErrorState() {
         _expenseCreateUpdateEvent.value =
             if (isNewExpense)
-                ExpenseCreateUpdateState.ErrorInserting
+                ExpenseCreateUpdateUIState.ErrorInserting
             else
-                ExpenseCreateUpdateState.ErrorUpdating
+                ExpenseCreateUpdateUIState.ErrorUpdating
     }
-
-    sealed class ExpenseCreateUpdateState {
-        object SuccessInserting : ExpenseCreateUpdateState()
-        object ErrorInserting : ExpenseCreateUpdateState()
-        object SuccessUpdating : ExpenseCreateUpdateState()
-        object ErrorUpdating : ExpenseCreateUpdateState()
-        object InvalidData : ExpenseCreateUpdateState()
-        object Empty : ExpenseCreateUpdateState()
-    }
-
 }

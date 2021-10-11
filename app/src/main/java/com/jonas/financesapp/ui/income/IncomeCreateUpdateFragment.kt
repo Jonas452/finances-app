@@ -70,22 +70,22 @@ class IncomeCreateUpdateFragment : Fragment() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.incomeCreateUpdateEvent.collect { state ->
                     when (state) {
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorInserting -> {
+                        IncomeCreateUpdateUIState.ErrorInserting -> {
                             showErrorToast(R.string.error_inserting_income)
                         }
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorUpdating -> {
+                        IncomeCreateUpdateUIState.ErrorUpdating -> {
                             showErrorToast(R.string.error_updating_income)
                         }
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.InvalidData -> {
+                        IncomeCreateUpdateUIState.InvalidData -> {
                             showErrorToast(R.string.error_fill_required_fields)
                         }
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessInserting -> {
+                        IncomeCreateUpdateUIState.SuccessInserting -> {
                             navigateBackSuccess(R.string.success_inserting_income)
                         }
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessUpdating -> {
+                        IncomeCreateUpdateUIState.SuccessUpdating -> {
                             navigateBackSuccess(R.string.success_updating_income)
                         }
-                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.Empty -> Any() //does nothing
+                        IncomeCreateUpdateUIState.Empty -> Any() //does nothing
                     }
                 }
             }

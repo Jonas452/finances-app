@@ -32,8 +32,8 @@ class IncomeCreateUpdateViewModel @Inject constructor(
     val received = MutableStateFlow(false)
 
     private val _incomeCreateUpdateEvent =
-        MutableStateFlow<IncomeCreateUpdateState>(IncomeCreateUpdateState.Empty)
-    val incomeCreateUpdateEvent: StateFlow<IncomeCreateUpdateState>
+        MutableStateFlow<IncomeCreateUpdateUIState>(IncomeCreateUpdateUIState.Empty)
+    val incomeCreateUpdateEvent: StateFlow<IncomeCreateUpdateUIState>
         get() = _incomeCreateUpdateEvent
 
     private var incomeId: String? = null
@@ -70,7 +70,7 @@ class IncomeCreateUpdateViewModel @Inject constructor(
                 setSuccessState()
             } else {
                 _incomeCreateUpdateEvent.value =
-                    IncomeCreateUpdateState.InvalidData
+                    IncomeCreateUpdateUIState.InvalidData
             }
         } catch (e: Exception) {
             e.printStackTrace() // Should be a log
@@ -98,25 +98,16 @@ class IncomeCreateUpdateViewModel @Inject constructor(
     private fun setSuccessState() {
         _incomeCreateUpdateEvent.value =
             if (isNewIncome)
-                IncomeCreateUpdateState.SuccessInserting
+                IncomeCreateUpdateUIState.SuccessInserting
             else
-                IncomeCreateUpdateState.SuccessUpdating
+                IncomeCreateUpdateUIState.SuccessUpdating
     }
 
     private fun setErrorState() {
         _incomeCreateUpdateEvent.value =
             if (isNewIncome)
-                IncomeCreateUpdateState.ErrorInserting
+                IncomeCreateUpdateUIState.ErrorInserting
             else
-                IncomeCreateUpdateState.ErrorUpdating
-    }
-
-    sealed class IncomeCreateUpdateState {
-        object SuccessInserting : IncomeCreateUpdateState()
-        object ErrorInserting : IncomeCreateUpdateState()
-        object SuccessUpdating : IncomeCreateUpdateState()
-        object ErrorUpdating : IncomeCreateUpdateState()
-        object InvalidData : IncomeCreateUpdateState()
-        object Empty : IncomeCreateUpdateState()
+                IncomeCreateUpdateUIState.ErrorUpdating
     }
 }
