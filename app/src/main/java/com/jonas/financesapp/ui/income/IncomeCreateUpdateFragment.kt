@@ -9,6 +9,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -17,9 +20,10 @@ import com.jonas.financesapp.R
 import com.jonas.financesapp.databinding.FragmentIncomeCreateUpdateBinding
 import com.jonas.financesapp.util.DateUtils
 import com.jonas.financesapp.util.DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
-import com.jonas.financesapp.util.EventObserver
 import com.jonas.financesapp.util.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.sql.Date
 
 @AndroidEntryPoint
@@ -33,12 +37,14 @@ class IncomeCreateUpdateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentIncomeCreateUpdateBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
-        viewModel.loadIncome(args.id)
+        args.id?.let {
+            viewModel.loadIncome(it)
+        }
 
         setupListeners()
         setupObservers()
@@ -60,38 +66,38 @@ class IncomeCreateUpdateFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.incomeCreateUpdateEvent.observe(viewLifecycleOwner, EventObserver { state ->
-            when (state) {
-                IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorInserting -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.error_inserting_income,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                }
-                IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorUpdating -> {
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.error_updating_income,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                }
-                IncomeCreateUpdateViewModel.IncomeCreateUpdateState.InvalidData -> {
-                    //TODO improve this feedback to the user
-                    Toast.makeText(
-                        requireActivity().applicationContext,
-                        R.string.error_fill_required_fields,
-                        Toast.LENGTH_LONG,
-                    ).show()
-                }
-                IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessInserting -> {
-                    navigateBackSuccess(R.string.success_inserting_income)
-                }
-                IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessUpdating -> {
-                    navigateBackSuccess(R.string.success_updating_income)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.incomeCreateUpdateEvent.collect { state ->
+                    when (state) {
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorInserting -> {
+                            showErrorToast(R.string.error_inserting_income)
+                        }
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.ErrorUpdating -> {
+                            showErrorToast(R.string.error_updating_income)
+                        }
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.InvalidData -> {
+                            showErrorToast(R.string.error_fill_required_fields)
+                        }
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessInserting -> {
+                            navigateBackSuccess(R.string.success_inserting_income)
+                        }
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.SuccessUpdating -> {
+                            navigateBackSuccess(R.string.success_updating_income)
+                        }
+                        IncomeCreateUpdateViewModel.IncomeCreateUpdateState.Empty -> Any() //does nothing
+                    }
                 }
             }
-        })
+        }
+    }
+
+    private fun showErrorToast(@StringRes msg: Int) {
+        Toast.makeText(
+            requireActivity().applicationContext,
+            msg,
+            Toast.LENGTH_LONG,
+        ).show()
     }
 
     private fun navigateBackSuccess(@StringRes msg: Int) {

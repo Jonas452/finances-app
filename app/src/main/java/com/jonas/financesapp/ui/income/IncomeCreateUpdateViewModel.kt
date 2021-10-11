@@ -1,7 +1,5 @@
 package com.jonas.financesapp.ui.income
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
@@ -10,8 +8,9 @@ import com.jonas.financesapp.usecase.income.GetIncomeByIdUseCase
 import com.jonas.financesapp.usecase.income.InsertIncomeUseCase
 import com.jonas.financesapp.usecase.income.UpdateIncomeUseCase
 import com.jonas.financesapp.util.DateUtils
-import com.jonas.financesapp.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.*
@@ -27,20 +26,18 @@ class IncomeCreateUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Exposed MutableLiveData for two-way data binding
-    val amount = MutableLiveData<String>()
-    val description = MutableLiveData<String>()
-    val date = MutableLiveData<String>()
-    val received = MutableLiveData<Boolean>()
+    val amount = MutableStateFlow("")
+    val description = MutableStateFlow("")
+    val date = MutableStateFlow("")
+    val received = MutableStateFlow(false)
 
-    private val _incomeCreateUpdateEvent = MutableLiveData<Event<IncomeCreateUpdateState>>()
-    val incomeCreateUpdateEvent: LiveData<Event<IncomeCreateUpdateState>> = _incomeCreateUpdateEvent
+    private val _incomeCreateUpdateEvent =
+        MutableStateFlow<IncomeCreateUpdateState>(IncomeCreateUpdateState.Empty)
+    val incomeCreateUpdateEvent: StateFlow<IncomeCreateUpdateState>
+        get() = _incomeCreateUpdateEvent
 
     private var incomeId: String? = null
     private var isNewIncome = true
-
-    init {
-        received.value = false
-    }
 
     fun saveIncome() = viewModelScope.launch(ioContext) {
         try {
@@ -49,10 +46,9 @@ class IncomeCreateUpdateViewModel @Inject constructor(
             val currentDate = date.value
             val currentReceived = received.value
 
-            if (currentAmount != null &&
-                currentDescription != null &&
-                currentDate != null &&
-                currentReceived != null
+            if (currentAmount.isNotEmpty() &&
+                currentDescription.isNotEmpty() &&
+                currentDate.isNotEmpty()
             ) {
                 val incomeItem = IncomeItem(
                     amount = BigDecimal(currentAmount),
@@ -73,9 +69,8 @@ class IncomeCreateUpdateViewModel @Inject constructor(
                 }
                 setSuccessState()
             } else {
-                _incomeCreateUpdateEvent.postValue(
-                    Event(IncomeCreateUpdateState.InvalidData)
-                )
+                _incomeCreateUpdateEvent.value =
+                    IncomeCreateUpdateState.InvalidData
             }
         } catch (e: Exception) {
             e.printStackTrace() // Should be a log
@@ -84,34 +79,30 @@ class IncomeCreateUpdateViewModel @Inject constructor(
     }
 
 
-    fun loadIncome(id: String?) = viewModelScope.launch {
-        id?.let {
-            incomeId = it
-            isNewIncome = false
-            val income = getIncomeByIdUseCase(UUID.fromString(it))
-            if (income != null) {
-                amount.value = income.amount.toString()
-                description.value = income.description
-                date.value =
-                    DateUtils.formatDate(
-                        income.date,
-                        DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
-                    )
-                received.value = income.received
-            }
+    fun loadIncome(id: String) = viewModelScope.launch {
+        incomeId = id
+        isNewIncome = false
+        val income = getIncomeByIdUseCase(UUID.fromString(id))
+        if (income != null) {
+            amount.value = income.amount.toString()
+            description.value = income.description
+            date.value =
+                DateUtils.formatDate(
+                    income.date,
+                    DateUtils.DAY_MONTH_YEAR_FORMAT_DATE_WITHOUT_TIME
+                )
+            received.value = income.received
         }
     }
 
     private fun setSuccessState() {
-        val state =
+        _incomeCreateUpdateEvent.value =
             if (isNewIncome) IncomeCreateUpdateState.SuccessInserting else IncomeCreateUpdateState.SuccessUpdating
-        _incomeCreateUpdateEvent.postValue(Event(state))
     }
 
     private fun setErrorState() {
-        val state =
+        _incomeCreateUpdateEvent.value =
             if (isNewIncome) IncomeCreateUpdateState.ErrorInserting else IncomeCreateUpdateState.ErrorUpdating
-        _incomeCreateUpdateEvent.postValue(Event(state))
     }
 
     sealed class IncomeCreateUpdateState {
@@ -120,6 +111,6 @@ class IncomeCreateUpdateViewModel @Inject constructor(
         object SuccessUpdating : IncomeCreateUpdateState()
         object ErrorUpdating : IncomeCreateUpdateState()
         object InvalidData : IncomeCreateUpdateState()
+        object Empty : IncomeCreateUpdateState()
     }
-
 }

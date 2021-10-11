@@ -19,7 +19,9 @@ object Deps {
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragment}"
     const val navigationUI= "androidx.navigation:navigation-ui-ktx:${Versions.navigationUI}"
     const val legacySupportV4= "androidx.legacy:legacy-support-v4:${Versions.legacySupportV4}"
-    const val hiltAndroid= "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
+    const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
+    const val lifeCycleRuntime =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifeCycleRuntime}"
 
     //Test deps
     const val junit= "junit:junit:${Versions.junit}"
