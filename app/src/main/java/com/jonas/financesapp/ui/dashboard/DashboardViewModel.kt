@@ -8,6 +8,7 @@ import com.jonas.financesapp.model.IncomeExpenseType
 import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
 import com.jonas.financesapp.usecase.income.GetSumAllIncomeUseCase
 import com.jonas.financesapp.usecase.incomeexpense.GetAllIncomeExpenseUseCase
+import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -46,21 +47,21 @@ class DashboardViewModel @Inject constructor(
         get() = _income.map { it.formatToMoney(context) }.stateIn(
             viewModelScope,
             SharingStarted.Lazily,
-            0.0.formatToMoney(context),
+            DEFAULT_MONEY_VALUE.formatToMoney(context),
         )
 
     val expense: StateFlow<String>
         get() = _expense.map { it.formatToMoney(context) }.stateIn(
             viewModelScope,
             SharingStarted.Lazily,
-            0.0.formatToMoney(context),
+            DEFAULT_MONEY_VALUE.formatToMoney(context),
         )
 
     val balance: StateFlow<String>
         get() = _balance.map { it.formatToMoney(context) }.stateIn(
             viewModelScope,
             SharingStarted.Lazily,
-            0.0.formatToMoney(context),
+            DEFAULT_MONEY_VALUE.formatToMoney(context),
         )
 
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {

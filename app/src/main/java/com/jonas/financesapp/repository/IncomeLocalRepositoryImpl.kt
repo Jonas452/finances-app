@@ -3,6 +3,7 @@ package com.jonas.financesapp.repository
 import com.jonas.financesapp.cache.dao.IncomeDao
 import com.jonas.financesapp.cache.mapper.IncomeMapper
 import com.jonas.financesapp.model.IncomeItem
+import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.*
@@ -36,7 +37,7 @@ class IncomeLocalRepositoryImpl @Inject constructor(
     }
 
     override fun getSumAllIncome(): Flow<Double> {
-        return incomeDao.getSumAllIncome().map { it ?: 0.0 }
+        return incomeDao.getSumAllIncome().map { it ?: DEFAULT_MONEY_VALUE }
     }
 
 }

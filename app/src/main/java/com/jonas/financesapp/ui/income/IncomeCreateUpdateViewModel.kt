@@ -7,6 +7,7 @@ import com.jonas.financesapp.model.IncomeItem
 import com.jonas.financesapp.usecase.income.GetIncomeByIdUseCase
 import com.jonas.financesapp.usecase.income.InsertIncomeUseCase
 import com.jonas.financesapp.usecase.income.UpdateIncomeUseCase
+import com.jonas.financesapp.util.Constants.EMPTY_STRING
 import com.jonas.financesapp.util.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,9 +27,9 @@ class IncomeCreateUpdateViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Exposed MutableLiveData for two-way data binding
-    val amount = MutableStateFlow("")
-    val description = MutableStateFlow("")
-    val date = MutableStateFlow("")
+    val amount = MutableStateFlow(EMPTY_STRING)
+    val description = MutableStateFlow(EMPTY_STRING)
+    val date = MutableStateFlow(EMPTY_STRING)
     val received = MutableStateFlow(false)
 
     private val _incomeCreateUpdateEvent =

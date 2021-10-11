@@ -3,6 +3,7 @@ package com.jonas.financesapp.repository
 import com.jonas.financesapp.cache.dao.ExpenseDao
 import com.jonas.financesapp.cache.mapper.ExpenseMapper
 import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.*
@@ -36,7 +37,7 @@ class ExpenseLocalRepositoryImpl @Inject constructor(
     }
 
     override fun getSumAllExpense(): Flow<Double> {
-        return expenseDao.getSumAllExpense().map { it ?: 0.0 }
+        return expenseDao.getSumAllExpense().map { it ?: DEFAULT_MONEY_VALUE }
     }
 
 }
