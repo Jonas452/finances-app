@@ -9,12 +9,16 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import com.jonas.financesapp.R
 import com.jonas.financesapp.databinding.FragmentDashboardBinding
-import com.jonas.financesapp.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -107,16 +111,21 @@ class DashboardFragment : Fragment() {
 
 
     private fun setupObservers() {
-        viewModel.dashboardEvent.observe(viewLifecycleOwner, EventObserver { event ->
-            when (event) {
-                is DashboardViewModel.DashboardEvent.OpenExpenseCreateUpdateFragment -> openExpenseCreateFragment(
-                    event.id
-                )
-                is DashboardViewModel.DashboardEvent.OpenIncomeCreateUpdateFragment -> openIncomeCreateUpdateFragment(
-                    event.id
-                )
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dashboardEvent.collect { state ->
+                    when (state) {
+                        is DashboardUIState.OpenExpenseCreateUpdateFragment -> openExpenseCreateFragment(
+                            state.id
+                        )
+                        is DashboardUIState.OpenIncomeCreateUpdateFragment -> openIncomeCreateUpdateFragment(
+                            state.id
+                        )
+                        DashboardUIState.Empty -> Any() // does nothing
+                    }
+                }
             }
-        })
+        }
     }
 
     private fun openExpenseCreateFragment(id: UUID) {

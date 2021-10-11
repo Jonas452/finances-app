@@ -1,18 +1,21 @@
 package com.jonas.financesapp.ui.dashboard
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import com.jonas.financesapp.model.IncomeExpenseItem
 import com.jonas.financesapp.model.IncomeExpenseType
 import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
 import com.jonas.financesapp.usecase.income.GetSumAllIncomeUseCase
 import com.jonas.financesapp.usecase.incomeexpense.GetAllIncomeExpenseUseCase
-import com.jonas.financesapp.util.Event
 import com.jonas.financesapp.util.LiveDataUtils
 import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +28,8 @@ class DashboardViewModel @Inject constructor(
 
     val incomeExpenseItems = getAllIncomeExpenseUseCase().asLiveData()
 
-    private val _dashboardEvent = MutableLiveData<Event<DashboardEvent>>()
-    val dashboardEvent: LiveData<Event<DashboardEvent>>
+    private val _dashboardEvent = MutableStateFlow<DashboardUIState>(DashboardUIState.Empty)
+    val dashboardEvent: StateFlow<DashboardUIState>
         get() = _dashboardEvent
 
     private val _income: LiveData<Double> =
@@ -47,19 +50,12 @@ class DashboardViewModel @Inject constructor(
     val balance: LiveData<String>
         get() = _balance.map { it.formatToMoney(context) }
 
-
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
         when (incomeExpenseItem.type) {
             IncomeExpenseType.INCOME -> _dashboardEvent.value =
-                Event(DashboardEvent.OpenIncomeCreateUpdateFragment(incomeExpenseItem.id))
+                DashboardUIState.OpenIncomeCreateUpdateFragment(incomeExpenseItem.id)
             IncomeExpenseType.EXPENSE -> _dashboardEvent.value =
-                Event(DashboardEvent.OpenExpenseCreateUpdateFragment(incomeExpenseItem.id))
+                DashboardUIState.OpenExpenseCreateUpdateFragment(incomeExpenseItem.id)
         }
     }
-
-    sealed class DashboardEvent {
-        class OpenIncomeCreateUpdateFragment(val id: UUID) : DashboardEvent()
-        class OpenExpenseCreateUpdateFragment(val id: UUID) : DashboardEvent()
-    }
-
 }
