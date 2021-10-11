@@ -1,20 +1,17 @@
 package com.jonas.financesapp.ui.dashboard
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.model.IncomeExpenseItem
 import com.jonas.financesapp.model.IncomeExpenseType
 import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
 import com.jonas.financesapp.usecase.income.GetSumAllIncomeUseCase
 import com.jonas.financesapp.usecase.incomeexpense.GetAllIncomeExpenseUseCase
-import com.jonas.financesapp.util.LiveDataUtils
 import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,23 +33,35 @@ class DashboardViewModel @Inject constructor(
     val dashboardEvent: StateFlow<DashboardUIState>
         get() = _dashboardEvent
 
-    private val _income: LiveData<Double> =
-        getSumAllIncomeUseCase().asLiveData()
-    val income: LiveData<String>
-        get() = _income.map { it.formatToMoney(context) }
-
-    private val _expense: LiveData<Double> =
-        getSumAllExpenseUseCase().asLiveData()
-    val expense: LiveData<String>
-        get() = _expense.map { it.formatToMoney(context) }
+    private val _income: Flow<Double> = getSumAllIncomeUseCase()
+    private val _expense: Flow<Double> = getSumAllExpenseUseCase()
 
     private val _balance by lazy {
-        LiveDataUtils.combine(_income, _expense) { inc, exp ->
-            (inc ?: 0.0).minus(exp ?: 0.0)
+        combine(_income, _expense) { inc, exp ->
+            inc.minus(exp)
         }
     }
-    val balance: LiveData<String>
-        get() = _balance.map { it.formatToMoney(context) }
+
+    val income: StateFlow<String>
+        get() = _income.map { it.formatToMoney(context) }.stateIn(
+            viewModelScope,
+            SharingStarted.Lazily,
+            0.0.formatToMoney(context),
+        )
+
+    val expense: StateFlow<String>
+        get() = _expense.map { it.formatToMoney(context) }.stateIn(
+            viewModelScope,
+            SharingStarted.Lazily,
+            0.0.formatToMoney(context),
+        )
+
+    val balance: StateFlow<String>
+        get() = _balance.map { it.formatToMoney(context) }.stateIn(
+            viewModelScope,
+            SharingStarted.Lazily,
+            0.0.formatToMoney(context),
+        )
 
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
         when (incomeExpenseItem.type) {
