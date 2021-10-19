@@ -1,7 +1,7 @@
 object Versions {
     //Core deps
     const val kotlin = "1.5.31"
-    const val gradlePlugin = "7.0.2"
+    const val gradlePlugin = "7.0.3"
     const val gradleSafeArgs = "2.3.5"
     const val hiltGradlePlugin = "2.38.1"
 

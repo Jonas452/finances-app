@@ -11,5 +11,5 @@ fun Double.roundTo(numFractionDigits: Int): Double {
 }
 
 fun Double.formatToMoney(context: Context): String {
-    return context.getString(R.string.sign_money, this.roundTo(2).toString())
+    return context.getString(R.string.money_sign, this.roundTo(2).toString())
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Finances App</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_income_expense_fab">Add new income or expense fab</string>
     <string name="add_expense_fab">Add expense fab</string>
     <string name="add_income_fab">Add income fab</string>
@@ -24,5 +22,5 @@
     <string name="success_inserting_expense">Success inserting the Expense</string>
     <string name="success_updating_expense">Success updating Expense</string>
     <string name="account_balance">Account balance</string>
-    <string name="sign_money">$ %s</string>
+    <string name="money_sign">$ %s</string>
 </resources>
