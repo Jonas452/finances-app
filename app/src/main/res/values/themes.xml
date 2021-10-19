@@ -35,4 +35,8 @@
         <item name="android:layout_marginStart">@dimen/keyline_half</item>
     </style>
 
+    <style name="DashboardBackground">
+        <item name="android:background">@color/white_ice</item>
+    </style>
+
 </resources>
