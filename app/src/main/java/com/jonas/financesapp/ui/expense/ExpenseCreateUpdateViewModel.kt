@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
 import com.jonas.financesapp.model.ExpenseItem
-import com.jonas.financesapp.usecase.expense.GetExpenseById
+import com.jonas.financesapp.usecase.expense.GetExpenseByIdUseCase
 import com.jonas.financesapp.usecase.expense.InsertExpenseUseCase
 import com.jonas.financesapp.usecase.expense.UpdateExpenseUseCase
 import com.jonas.financesapp.util.Constants.EMPTY_STRING
@@ -22,7 +22,7 @@ import kotlin.coroutines.CoroutineContext
 class ExpenseCreateUpdateViewModel @Inject constructor(
     private val insertExpenseUseCase: InsertExpenseUseCase,
     private val updateExpenseUseCase: UpdateExpenseUseCase,
-    private val getExpenseById: GetExpenseById,
+    private val getExpenseByIdUseCase: GetExpenseByIdUseCase,
     @IOContext private val ioContext: CoroutineContext,
 ) : ViewModel() {
 
@@ -86,7 +86,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
     fun loadExpenses(id: String) = viewModelScope.launch {
         expenseId = id
         isNewExpense = false
-        val expense = getExpenseById(UUID.fromString(id))
+        val expense = getExpenseByIdUseCase(UUID.fromString(id))
         if (expense != null) {
             amount.value = expense.amount.toString()
             description.value = expense.description

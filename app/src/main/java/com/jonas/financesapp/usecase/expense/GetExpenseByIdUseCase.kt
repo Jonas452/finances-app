@@ -5,7 +5,7 @@ import com.jonas.financesapp.repository.ExpenseLocalRepository
 import java.util.*
 import javax.inject.Inject
 
-class GetExpenseById @Inject constructor(
+class GetExpenseByIdUseCase @Inject constructor(
     private val expenseLocalRepository: ExpenseLocalRepository,
 ) {
 
