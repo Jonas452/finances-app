@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.jonas.financesapp.model.IncomeExpenseItem" />
+            type="com.jonas.financesapp.domain.model.IncomeExpenseItem" />
 
         <variable
             name="viewModel"

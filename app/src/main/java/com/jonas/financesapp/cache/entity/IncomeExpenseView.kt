@@ -3,7 +3,7 @@ package com.jonas.financesapp.cache.entity
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 import com.jonas.financesapp.cache.entity.IncomeExpenseView.Companion.VIEW_NAME
-import com.jonas.financesapp.model.IncomeExpenseType
+import com.jonas.financesapp.domain.model.IncomeExpenseType
 import java.math.BigDecimal
 import java.util.*
 

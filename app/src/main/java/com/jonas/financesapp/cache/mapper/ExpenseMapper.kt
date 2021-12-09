@@ -1,7 +1,7 @@
 package com.jonas.financesapp.cache.mapper
 
 import com.jonas.financesapp.cache.entity.ExpenseEntity
-import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.domain.model.ExpenseItem
 import java.math.BigDecimal
 import javax.inject.Inject
 

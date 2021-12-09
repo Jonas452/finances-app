@@ -1,14 +1,14 @@
-package com.jonas.financesapp.usecase.expense
+package com.jonas.financesapp.domain.usecase.expense
 
-import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.domain.model.ExpenseItem
 import com.jonas.financesapp.repository.ExpenseLocalRepository
 import javax.inject.Inject
 
-class UpdateExpenseUseCase @Inject constructor(
+class InsertExpenseUseCase @Inject constructor(
     private val expenseLocalRepository: ExpenseLocalRepository,
 ) {
 
     suspend operator fun invoke(expenseItem: ExpenseItem) =
-        expenseLocalRepository.updateExpense(expenseItem)
+        expenseLocalRepository.insertExpense(expenseItem)
 
 }

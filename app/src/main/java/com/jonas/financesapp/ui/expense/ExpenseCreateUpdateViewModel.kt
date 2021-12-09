@@ -3,10 +3,10 @@ package com.jonas.financesapp.ui.expense
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
-import com.jonas.financesapp.model.ExpenseItem
-import com.jonas.financesapp.usecase.expense.GetExpenseByIdUseCase
-import com.jonas.financesapp.usecase.expense.InsertExpenseUseCase
-import com.jonas.financesapp.usecase.expense.UpdateExpenseUseCase
+import com.jonas.financesapp.domain.model.ExpenseItem
+import com.jonas.financesapp.domain.usecase.expense.GetExpenseByIdUseCase
+import com.jonas.financesapp.domain.usecase.expense.InsertExpenseUseCase
+import com.jonas.financesapp.domain.usecase.expense.UpdateExpenseUseCase
 import com.jonas.financesapp.util.Constants.EMPTY_STRING
 import com.jonas.financesapp.util.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel

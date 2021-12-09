@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jonas.financesapp.databinding.IncomeExpenseItemBinding
-import com.jonas.financesapp.model.IncomeExpenseItem
+import com.jonas.financesapp.domain.model.IncomeExpenseItem
 
 class IncomeExpenseAdapter(private val viewModel: DashboardViewModel) :
     ListAdapter<IncomeExpenseItem, IncomeExpenseAdapter.ViewHolder>(IncomeExpenseDiffCallback()) {

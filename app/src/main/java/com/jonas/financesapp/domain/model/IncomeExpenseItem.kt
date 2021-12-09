@@ -1,4 +1,4 @@
-package com.jonas.financesapp.model
+package com.jonas.financesapp.domain.model
 
 import android.content.Context
 import androidx.annotation.ColorInt

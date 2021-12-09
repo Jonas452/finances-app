@@ -1,4 +1,4 @@
-package com.jonas.financesapp.usecase.income
+package com.jonas.financesapp.domain.usecase.income
 
 import com.jonas.financesapp.repository.IncomeLocalRepository
 import javax.inject.Inject

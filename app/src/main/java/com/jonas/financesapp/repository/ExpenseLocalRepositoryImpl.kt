@@ -2,7 +2,7 @@ package com.jonas.financesapp.repository
 
 import com.jonas.financesapp.cache.dao.ExpenseDao
 import com.jonas.financesapp.cache.mapper.ExpenseMapper
-import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.domain.model.ExpenseItem
 import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

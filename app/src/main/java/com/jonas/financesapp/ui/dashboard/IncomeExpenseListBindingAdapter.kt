@@ -2,7 +2,7 @@ package com.jonas.financesapp.ui.dashboard
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jonas.financesapp.model.IncomeExpenseItem
+import com.jonas.financesapp.domain.model.IncomeExpenseItem
 
 @BindingAdapter("app:items")
 fun setItems(listView: RecyclerView, items: List<IncomeExpenseItem>?) {

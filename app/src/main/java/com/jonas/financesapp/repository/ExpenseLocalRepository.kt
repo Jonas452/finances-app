@@ -1,6 +1,6 @@
 package com.jonas.financesapp.repository
 
-import com.jonas.financesapp.model.ExpenseItem
+import com.jonas.financesapp.domain.model.ExpenseItem
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 

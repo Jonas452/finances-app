@@ -2,8 +2,8 @@ package com.jonas.financesapp.util
 
 import com.jonas.financesapp.cache.entity.ExpenseEntity
 import com.jonas.financesapp.cache.entity.IncomeEntity
-import com.jonas.financesapp.model.ExpenseItem
-import com.jonas.financesapp.model.IncomeItem
+import com.jonas.financesapp.domain.model.ExpenseItem
+import com.jonas.financesapp.domain.model.IncomeItem
 import java.math.BigDecimal
 import java.util.*
 

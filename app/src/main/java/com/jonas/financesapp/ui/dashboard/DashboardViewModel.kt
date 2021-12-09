@@ -3,11 +3,11 @@ package com.jonas.financesapp.ui.dashboard
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jonas.financesapp.model.IncomeExpenseItem
-import com.jonas.financesapp.model.IncomeExpenseType
-import com.jonas.financesapp.usecase.expense.GetSumAllExpenseUseCase
-import com.jonas.financesapp.usecase.income.GetSumAllIncomeUseCase
-import com.jonas.financesapp.usecase.incomeexpense.GetAllIncomeExpenseUseCase
+import com.jonas.financesapp.domain.model.IncomeExpenseItem
+import com.jonas.financesapp.domain.model.IncomeExpenseType
+import com.jonas.financesapp.domain.usecase.expense.GetSumAllExpenseUseCase
+import com.jonas.financesapp.domain.usecase.income.GetSumAllIncomeUseCase
+import com.jonas.financesapp.domain.usecase.incomeexpense.GetAllIncomeExpenseUseCase
 import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,10 +3,10 @@ package com.jonas.financesapp.ui.income
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jonas.financesapp.di.IOContext
-import com.jonas.financesapp.model.IncomeItem
-import com.jonas.financesapp.usecase.income.GetIncomeByIdUseCase
-import com.jonas.financesapp.usecase.income.InsertIncomeUseCase
-import com.jonas.financesapp.usecase.income.UpdateIncomeUseCase
+import com.jonas.financesapp.domain.model.IncomeItem
+import com.jonas.financesapp.domain.usecase.income.GetIncomeByIdUseCase
+import com.jonas.financesapp.domain.usecase.income.InsertIncomeUseCase
+import com.jonas.financesapp.domain.usecase.income.UpdateIncomeUseCase
 import com.jonas.financesapp.util.Constants.EMPTY_STRING
 import com.jonas.financesapp.util.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel

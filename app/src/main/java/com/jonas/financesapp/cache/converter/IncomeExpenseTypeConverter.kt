@@ -1,7 +1,7 @@
 package com.jonas.financesapp.cache.converter
 
 import androidx.room.TypeConverter
-import com.jonas.financesapp.model.IncomeExpenseType
+import com.jonas.financesapp.domain.model.IncomeExpenseType
 
 object IncomeExpenseTypeConverter {
 

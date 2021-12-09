@@ -2,7 +2,7 @@ package com.jonas.financesapp.repository
 
 import com.jonas.financesapp.cache.dao.IncomeExpenseViewDao
 import com.jonas.financesapp.cache.mapper.IncomeExpenseMapper
-import com.jonas.financesapp.model.IncomeExpenseItem
+import com.jonas.financesapp.domain.model.IncomeExpenseItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
