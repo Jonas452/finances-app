@@ -119,7 +119,6 @@ class DashboardFragment : Fragment() {
                         is DashboardUIState.OpenIncomeCreateUpdateFragment -> openIncomeCreateUpdateFragment(
                             state.id
                         )
-                        DashboardUIState.Empty -> Any() // does nothing
                     }
                 }
             }

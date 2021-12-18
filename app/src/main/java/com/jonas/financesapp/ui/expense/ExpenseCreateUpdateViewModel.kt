@@ -26,7 +26,6 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
     @IOContext private val ioContext: CoroutineContext,
 ) : ViewModel() {
 
-    // Exposed MutableLiveData for two-way data binding
     val amount = MutableStateFlow(EMPTY_STRING)
     val description = MutableStateFlow(EMPTY_STRING)
     val date = MutableStateFlow(EMPTY_STRING)
@@ -34,8 +33,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
 
     private val _expenseCreateUpdateEvent =
         MutableStateFlow<ExpenseCreateUpdateUIState>(ExpenseCreateUpdateUIState.Empty)
-    val expenseCreateUpdateEvent: StateFlow<ExpenseCreateUpdateUIState>
-        get() = _expenseCreateUpdateEvent
+    val expenseCreateUpdateEvent: StateFlow<ExpenseCreateUpdateUIState> = _expenseCreateUpdateEvent
 
     private var expenseId: String? = null
     private var isNewExpense = true

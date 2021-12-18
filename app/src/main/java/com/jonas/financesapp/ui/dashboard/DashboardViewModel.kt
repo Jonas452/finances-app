@@ -12,7 +12,15 @@ import com.jonas.financesapp.util.Constants.DEFAULT_MONEY_VALUE
 import com.jonas.financesapp.util.formatToMoney
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +38,8 @@ class DashboardViewModel @Inject constructor(
             emptyList(),
         )
 
-    private val _dashboardEvent = MutableStateFlow<DashboardUIState>(DashboardUIState.Empty)
-    val dashboardEvent: StateFlow<DashboardUIState>
-        get() = _dashboardEvent
+    private val _dashboardEvent = MutableSharedFlow<DashboardUIState>(replay = 0)
+    val dashboardEvent: SharedFlow<DashboardUIState> = _dashboardEvent
 
     private val _income: Flow<Double> = getSumAllIncomeUseCase()
     private val _expense: Flow<Double> = getSumAllExpenseUseCase()
@@ -43,33 +50,36 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    val income: StateFlow<String>
-        get() = _income.map { it.formatToMoney(context) }.stateIn(
-            viewModelScope,
-            SharingStarted.Lazily,
-            DEFAULT_MONEY_VALUE.formatToMoney(context),
-        )
+    val income: StateFlow<String> = _income.map { it.formatToMoney(context) }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        DEFAULT_MONEY_VALUE.formatToMoney(context),
+    )
 
-    val expense: StateFlow<String>
-        get() = _expense.map { it.formatToMoney(context) }.stateIn(
-            viewModelScope,
-            SharingStarted.Lazily,
-            DEFAULT_MONEY_VALUE.formatToMoney(context),
-        )
+    val expense: StateFlow<String> = _expense.map { it.formatToMoney(context) }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        DEFAULT_MONEY_VALUE.formatToMoney(context),
+    )
 
-    val balance: StateFlow<String>
-        get() = _balance.map { it.formatToMoney(context) }.stateIn(
-            viewModelScope,
-            SharingStarted.Lazily,
-            DEFAULT_MONEY_VALUE.formatToMoney(context),
-        )
+    val balance: StateFlow<String> = _balance.map { it.formatToMoney(context) }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        DEFAULT_MONEY_VALUE.formatToMoney(context),
+    )
 
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
-        when (incomeExpenseItem.type) {
-            IncomeExpenseType.INCOME -> _dashboardEvent.value =
-                DashboardUIState.OpenIncomeCreateUpdateFragment(incomeExpenseItem.id)
-            IncomeExpenseType.EXPENSE -> _dashboardEvent.value =
-                DashboardUIState.OpenExpenseCreateUpdateFragment(incomeExpenseItem.id)
+        viewModelScope.launch {
+            when (incomeExpenseItem.type) {
+                IncomeExpenseType.INCOME -> _dashboardEvent.emit(
+                    DashboardUIState.OpenIncomeCreateUpdateFragment(incomeExpenseItem.id)
+                )
+                IncomeExpenseType.EXPENSE -> _dashboardEvent.emit(
+                    DashboardUIState.OpenExpenseCreateUpdateFragment(
+                        incomeExpenseItem.id
+                    )
+                )
+            }
         }
     }
 }

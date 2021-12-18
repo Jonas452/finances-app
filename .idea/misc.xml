@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Android/studies/finances-app/app/src/main/res/drawable/ic_add.xml" value="0.3828125" />
+        <entry key="..\:/Projects/Android/studies/finances-app/app/src/main/res/layout/activity_main.xml" value="0.18125" />
         <entry key="..\:/Projects/Android/studies/finances-app/app/src/main/res/layout/finances_summary.xml" value="0.23052536231884058" />
+        <entry key="..\:/Projects/Android/studies/finances-app/app/src/main/res/layout/fragment_expense_create_update.xml" value="0.18125" />
         <entry key="..\:/Projects/Android/studies/finances-app/app/src/main/res/layout/income_expense_item.xml" value="0.245018115942029" />
       </map>
     </option>
