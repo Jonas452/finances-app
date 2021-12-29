@@ -66,8 +66,8 @@ class IncomeCreateUpdateFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.incomeCreateUpdateEvent.collect { state ->
                     when (state) {
                         IncomeCreateUpdateUIState.ErrorInserting -> {

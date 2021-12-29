@@ -78,7 +78,7 @@ class IncomeCreateUpdateViewModel @Inject constructor(
     }
 
 
-    fun loadIncome(id: String) = viewModelScope.launch {
+    fun loadIncome(id: String) = viewModelScope.launch(ioContext) {
         incomeId = id
         isNewIncome = false
         val income = getIncomeByIdUseCase(UUID.fromString(id))

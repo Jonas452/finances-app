@@ -81,7 +81,7 @@ class ExpenseCreateUpdateViewModel @Inject constructor(
         }
     }
 
-    fun loadExpenses(id: String) = viewModelScope.launch {
+    fun loadExpenses(id: String) = viewModelScope.launch(ioContext) {
         expenseId = id
         isNewExpense = false
         val expense = getExpenseByIdUseCase(UUID.fromString(id))

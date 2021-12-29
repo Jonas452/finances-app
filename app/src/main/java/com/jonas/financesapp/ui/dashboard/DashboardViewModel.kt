@@ -3,6 +3,7 @@ package com.jonas.financesapp.ui.dashboard
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jonas.financesapp.di.IOContext
 import com.jonas.financesapp.domain.model.IncomeExpenseItem
 import com.jonas.financesapp.domain.model.IncomeExpenseType
 import com.jonas.financesapp.domain.usecase.expense.GetSumAllExpenseUseCase
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
@@ -29,6 +31,7 @@ class DashboardViewModel @Inject constructor(
     getAllIncomeExpenseUseCase: GetAllIncomeExpenseUseCase,
     getSumAllExpenseUseCase: GetSumAllExpenseUseCase,
     getSumAllIncomeUseCase: GetSumAllIncomeUseCase,
+    @IOContext private val ioContext: CoroutineContext,
 ) : ViewModel() {
 
     val incomeExpenseItems: StateFlow<List<IncomeExpenseItem>> =
@@ -69,7 +72,7 @@ class DashboardViewModel @Inject constructor(
     )
 
     fun openIncomeExpense(incomeExpenseItem: IncomeExpenseItem) {
-        viewModelScope.launch {
+        viewModelScope.launch(ioContext) {
             when (incomeExpenseItem.type) {
                 IncomeExpenseType.INCOME -> _dashboardEvent.emit(
                     DashboardUIState.OpenIncomeCreateUpdateFragment(incomeExpenseItem.id)

@@ -19,7 +19,7 @@ object Versions {
     const val navigationUI = "2.3.5"
     const val legacySupportV4 = "1.0.0"
     const val hiltAndroid = "2.38.1"
-    const val lifeCycleRuntime = "2.4.0-alpha01"
+    const val lifeCycleRuntime = "2.4.0"
 
     //Test deps
     const val junit = "4.13.2"
