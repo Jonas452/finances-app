@@ -94,17 +94,11 @@ class DashboardFragment : Fragment() {
         }
 
         binding.fabExpense.setOnClickListener {
-            val action =
-                DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment(
-                    null
-                )
-            findNavController().navigate(action)
+            openExpenseCreateFragment(id = null)
         }
 
         binding.fabIncome.setOnClickListener {
-            val action =
-                DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(null)
-            findNavController().navigate(action)
+            openIncomeCreateUpdateFragment(id = null)
         }
     }
 
@@ -125,15 +119,19 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun openExpenseCreateFragment(id: UUID) {
+    private fun openExpenseCreateFragment(id: UUID?) {
+        val idString = id?.toString()
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment(id.toString())
+            DashboardFragmentDirections.actionDashboardFragmentToExpenseCreateUpdateFragment(
+                idString
+            )
         findNavController().navigate(action)
     }
 
-    private fun openIncomeCreateUpdateFragment(id: UUID) {
+    private fun openIncomeCreateUpdateFragment(id: UUID?) {
+        val idString = id?.toString()
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(id.toString())
+            DashboardFragmentDirections.actionDashboardFragmentToIncomeCreateUpdateFragment(idString)
         findNavController().navigate(action)
     }
 
