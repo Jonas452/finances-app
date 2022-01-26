@@ -1,7 +1,7 @@
 package com.jonas.financesapp.domain.usecase.incomeexpense
 
+import com.jonas.financesapp.data.repository.IncomeExpenseLocalRepository
 import com.jonas.financesapp.domain.model.IncomeExpenseItem
-import com.jonas.financesapp.repository.IncomeExpenseLocalRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

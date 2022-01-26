@@ -1,6 +1,6 @@
 package com.jonas.financesapp.domain.usecase.expense
 
-import com.jonas.financesapp.repository.ExpenseLocalRepository
+import com.jonas.financesapp.data.repository.ExpenseLocalRepository
 import javax.inject.Inject
 
 class GetSumAllExpenseUseCase @Inject constructor(

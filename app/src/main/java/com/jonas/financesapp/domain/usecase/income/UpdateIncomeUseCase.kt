@@ -1,7 +1,7 @@
 package com.jonas.financesapp.domain.usecase.income
 
+import com.jonas.financesapp.data.repository.IncomeLocalRepository
 import com.jonas.financesapp.domain.model.IncomeItem
-import com.jonas.financesapp.repository.IncomeLocalRepository
 import javax.inject.Inject
 
 class UpdateIncomeUseCase @Inject constructor(

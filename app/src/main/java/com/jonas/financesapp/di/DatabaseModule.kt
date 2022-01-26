@@ -1,8 +1,13 @@
 package com.jonas.financesapp.di
 
 import android.content.Context
-import com.jonas.financesapp.cache.FinancesDatabase
-import com.jonas.financesapp.repository.*
+import com.jonas.financesapp.data.local.FinancesDatabase
+import com.jonas.financesapp.data.repository.ExpenseLocalRepository
+import com.jonas.financesapp.data.repository.ExpenseLocalRepositoryImpl
+import com.jonas.financesapp.data.repository.IncomeExpenseLocalRepository
+import com.jonas.financesapp.data.repository.IncomeExpenseLocalRepositoryImpl
+import com.jonas.financesapp.data.repository.IncomeLocalRepository
+import com.jonas.financesapp.data.repository.IncomeLocalRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
